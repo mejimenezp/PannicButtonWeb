@@ -1,0 +1,63 @@
+/* Contenedor principal */
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8f9fa;
+}
+
+/* Estilo del logo */
+.header-logo {
+  width: 100px;
+  height: auto;
+  margin-top: 10px;
+}
+
+/* Título */
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Descripción */
+.app-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Contenedor del carrusel */
+.carousel-container {
+  width: 100%;
+  max-width: 450px;
+  margin: 20px auto;
+}
+
+/* Carrusel */
+.app-carousel {
+  width: 100%;
+  margin: auto;
+}
+
+/* Imágenes del carrusel */
+.carousel-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-img:hover {
+  transform: scale(1.05);
+}
+
+/* Disponibilidad */
+.available-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 25px;
+}
