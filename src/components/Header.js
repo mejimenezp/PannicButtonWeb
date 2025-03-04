@@ -8,7 +8,6 @@ const Header = () => {
           <div className="contact_nav">
             <a href="tel:+573001234567">
               <i className="fa fa-phone" aria-hidden="true"></i>
-              <span>Emergencia: +57 300 123 4567</span>
             </a>
             <a href="mailto:soporte@panicbutton.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>
@@ -39,6 +38,7 @@ const Header = () => {
                 <li className="nav-item">
                   <a className="nav-link" href="/">Inicio</a>
                 </li>
+                {/*
                 <li className="nav-item">
                   <a className="nav-link" href="/registro">Registro</a>
                 </li>
@@ -48,6 +48,7 @@ const Header = () => {
                 <li className="nav-item">
                   <a className="nav-link" href="/configuracion">Configuración</a>
                 </li>
+                */}
               </ul>
             </div>
           </nav>
