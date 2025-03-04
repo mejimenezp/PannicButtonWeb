@@ -44,7 +44,6 @@ const Header = () => {
                   <Link className="nav-link" to="/soporte">Soporte</Link>
                 </li>
               </ul>
-              <Link to="/soporte" className="btn btn-support">Soporte</Link>
             </div>
           </nav>
         </div>
