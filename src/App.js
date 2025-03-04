@@ -6,8 +6,8 @@ import Features from "./components/Features";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Privacidad from "./pages/privacidadTerms"; 
-import Contact from "./components/Contact";
+import Privacidad from "./pages/privacidadTerms";
+import Soporte from "./pages/soporte";   
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -17,7 +17,7 @@ import "./assets/css/Features.css";
 import "./assets/css/Home.css";
 import "./assets/css/about.css";
 import "./assets/css/Footer.css";
-import Soporte from "./pages/soporte";
+
 
 function App() {
   return (
