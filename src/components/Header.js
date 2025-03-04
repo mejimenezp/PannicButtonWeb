@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Soporte from "../pages/soporte";
 
 const Header = () => {
   return (
@@ -8,7 +10,6 @@ const Header = () => {
           <div className="contact_nav">
             <a href="tel:+573001234567">
               <i className="fa fa-phone" aria-hidden="true"></i>
-              
             </a>
             <a href="mailto:soporte.botondepanico@gmail.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>
@@ -37,20 +38,13 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a className="nav-link" href="/">Inicio</a>
-                </li>
-                {/*
-                <li className="nav-item">
-                  <a className="nav-link" href="/registro">Registro</a>
+                  <Link className="nav-link" to="/">Inicio</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/contactos">Contactos</a>
+                  <Link className="nav-link" to="/soporte">Soporte</Link>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/configuracion">Configuración</a>
-                </li>
-                */}
               </ul>
+              <Link to="/soporte" className="btn btn-support">Soporte</Link>
             </div>
           </nav>
         </div>
