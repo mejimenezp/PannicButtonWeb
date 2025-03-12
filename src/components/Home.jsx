@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import imagen1 from "../assets/images/imagen1.PNG";
+import imagen1 from "../assets/images/imagen1.png";
 import imagen3 from "../assets/images/imagen3.PNG";
 import imagen4 from "../assets/images/imagen4.PNG";
 

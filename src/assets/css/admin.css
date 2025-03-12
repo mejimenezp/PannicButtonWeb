@@ -1,0 +1,83 @@
+.admin-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Tabla estilizada */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #007bff;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+tbody tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+tbody tr:hover {
+  background: #d9e9ff;
+  cursor: pointer;
+}
+
+.no-users {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #777;
+}
+
+/* Botón de acción */
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 4px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-edit {
+  background: #28a745;
+  color: white;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+

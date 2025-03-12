@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Soporte from "../pages/soporte";
 
 const Header = () => {
   return (
@@ -8,9 +7,12 @@ const Header = () => {
       <div className="header_top">
         <div className="container-fluid">
           <div className="contact_nav">
-            <a href="tel:+573001234567">
-              <i className="fa fa-phone" aria-hidden="true"></i>
-            </a>
+            {/* Botón de Admin */}
+            <Link to="/admin" className="admin-button">
+              <i className="fa fa-user-cog" aria-hidden="true"></i>
+              <span> Admin</span>
+            </Link>
+
             <a href="mailto:soporte.botondepanico@gmail.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>
               <span>Email: soporte.botondepanico@gmail.com</span>
