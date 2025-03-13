@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { createContact, updateContact } from "../api/contacts";
+import { createContact, updateContact, getRoles } from "../api/contacts";
 import { getDepartamentos, getAreas, getCiudades, getVeredas, getLocalidades } from "../api/locations";
+import "../assets/css/forms.css";
 
 const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
   const [contact, setContact] = useState({
@@ -20,22 +21,37 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
   const [ciudades, setCiudades] = useState([]);
   const [veredas, setVeredas] = useState([]);
   const [localidades, setLocalidades] = useState([]);
+  const [roles, setRoles] = useState([]);
 
-  useEffect(() => {
-    if (editingContact) {
-      setContact({
-        name: editingContact.Cont_Name || "",
-        phone: editingContact.Cont_Phone || "",
-        email: editingContact.Cont_Email || "",
-        tyco_id: editingContact.Cont_TyCo_ID || "",
-        dpto_id: editingContact.Cont_Dpto_ID || "",
-        area_id: editingContact.Cont_Area_ID || "",
-        ciud_id: editingContact.Cont_Ciud_ID || "",
-        vere_id: editingContact.Cont_Vere_ID || "",
-        loca_id: editingContact.Cont_Loca_ID || "",
-      });
-    }
-  }, [editingContact]);
+ useEffect(() => {
+  if (editingContact) {
+    // Si hay contacto en edición, carga los datos
+    setContact({
+      name: editingContact.Cont_Name || "",
+      phone: editingContact.Cont_Phone || "",
+      email: editingContact.Cont_Email || "",
+      tyco_id: editingContact.Cont_TyCo_ID || "",
+      dpto_id: editingContact.Cont_Dpto_ID || "",
+      area_id: editingContact.Cont_Area_ID || "",
+      ciud_id: editingContact.Cont_Ciud_ID || "",
+      vere_id: editingContact.Cont_Vere_ID || "",
+      loca_id: editingContact.Cont_Loca_ID || "",
+    });
+  } else {
+    // Si no hay contacto en edición, resetea los campos
+    setContact({
+      name: "",
+      phone: "",
+      email: "",
+      tyco_id: "",
+      dpto_id: "",
+      area_id: "",
+      ciud_id: "",
+      vere_id: "",
+      loca_id: "",
+    });
+  }
+}, [editingContact]);
 
   useEffect(() => {
     const fetchDepartamentos = async () => {
@@ -46,6 +62,17 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
         console.error("Error cargando departamentos:", error);
       }
     };
+    const fetchRoles = async () => {
+          try {
+            const data = await getRoles();
+            setRoles(data);
+          } catch (error) {
+            console.error("Error cargando roles:", error);
+          }
+        };
+    
+  
+    fetchRoles();
     fetchDepartamentos();
   }, []);
 
@@ -108,7 +135,14 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
       <input type="text" name="name" value={contact.name} onChange={handleChange} placeholder="Nombre" required />
       <input type="text" name="email" value={contact.email} onChange={handleChange} placeholder="Email" required />
       <input type="text" name="phone" value={contact.phone} onChange={handleChange} placeholder="Teléfono" required />
-      <input type="number" name="tyco_id" value={contact.tyco_id} onChange={handleChange} placeholder="Tipo de Contacto" required />
+      <select name="tyco_id" value={contact.tyco_id} onChange={handleChange} required>
+        <option value="">Seleccione un Tipo de Contacto</option>
+        {roles.map((role) => (
+          <option key={role.TyCo_ID} value={role.TyCo_ID}>
+            {role.TyCo_Name}
+          </option>
+        ))}
+      </select>
 
       <select name="dpto_id" value={contact.dpto_id} onChange={handleChange} required>
         <option value="">Seleccione un Departamento</option>

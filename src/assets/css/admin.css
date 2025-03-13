@@ -2,82 +2,220 @@
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #e3e3e3, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #444;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
-/* Tabla estilizada */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #f9f9f9;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background: #007bff;
-  color: #fff;
-  text-transform: uppercase;
-}
-
-tbody tr:nth-child(even) {
-  background: #f2f2f2;
-}
-
-tbody tr:hover {
-  background: #d9e9ff;
-  cursor: pointer;
-}
-
-.no-users {
-  text-align: center;
-  padding: 20px;
-  font-size: 16px;
-  color: #777;
-}
-
-/* Botón de acción */
-.btn {
-  display: inline-block;
-  padding: 8px 12px;
-  margin: 4px;
-  font-size: 14px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 4px;
-  border: none;
-  transition: 0.3s;
-}
-
-.btn-edit {
-  background: #28a745;
-  color: white;
-}
-
-.btn-delete {
-  background: #dc3545;
-  color: white;
-}
-
-.btn:hover {
-  opacity: 0.8;
-}
+/* Tabla renovada estilo moderno */
 .table-container {
   overflow-x: auto;
   max-width: 100%;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+th, td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  position: relative;
+}
+
+/* Tooltip renovado */
+th[data-tooltip], td[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+th[data-tooltip]::before, td[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  background: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: 10;
+  transition: opacity 0.2s ease-in-out, top 0.2s ease-in-out;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+th[data-tooltip]:hover::before, td[data-tooltip]:hover::before {
+  opacity: 1;
+  visibility: visible;
+  top: -35px;
+}
+
+th[data-tooltip]::after, td[data-tooltip]::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+th[data-tooltip]:hover::after, td[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+th {
+  background: #4a4e69;
+  color: #f8f8f8;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+  background: #f1f3f5;
+}
+
+tbody tr:hover {
+  background: #dfe7fd;
+  transform: scale(1.02);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.no-contacts {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #777;
+  font-style: italic;
+}
+
+/* Botones renovados alineados lado a lado y con ancho uniforme */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  margin: 4px 2px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  min-width: 40px;
+  box-sizing: border-box;
+}
+
+.btn-edit {
+  background: #12b886;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-delete {
+  background: #e63946;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: inline-block !important;
+  visibility: visible !important;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Alineación perfecta de botones en celda con íconos */
+td .btn-container {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.btn i {
+  font-size: 18px;
+}
+.btn-add {
+  padding: 10px 15px;
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s ease-in-out;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.btn-add:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+.btn-close {
+  align-self: flex-end;
+  background: #d9534f;
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-close:hover {
+  background: #c9302c;
+}
+
+/* Transición suave para la barra lateral */
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100%;
+  background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: "Arial", sans-serif;
+  z-index: 1000;
+}
+
+.sidebar-container.open {
+  right: 0;
+}

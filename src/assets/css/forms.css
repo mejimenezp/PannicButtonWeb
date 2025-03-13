@@ -1,0 +1,76 @@
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100%;
+  background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Arial', sans-serif;
+  z-index: 1000;
+}
+
+.sidebar-container.open {
+  right: 0;
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  border-color: #4a4e69;
+  box-shadow: 0 0 8px rgba(74, 78, 105, 0.7);
+  outline: none;
+  transform: scale(1.02);
+}
+
+button {
+  padding: 10px 15px;
+  background: linear-gradient(145deg, #4a4e69, #3c3e56);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s ease-in-out;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  background: #22223b;
+  transform: scale(1.05);
+}
+
+select:disabled {
+  background: #e0e0e0;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .sidebar-container {
+    width: 100%;
+    padding: 15px;
+  }
+  input, select, button {
+    font-size: 14px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

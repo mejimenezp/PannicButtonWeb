@@ -23,3 +23,10 @@ export const deleteContact = async (id) => {
   const response = await api.delete(`/contacts/${id}`);
   return response.data;
 };
+
+// obtener roles 
+
+export const getRoles = async () => {
+  const response = await api.get("/roles");
+  return response.data;
+};

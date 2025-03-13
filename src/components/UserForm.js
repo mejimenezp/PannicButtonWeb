@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createUser, updateUser } from "../api/users";
+import { createUser, updateUser, getServices } from "../api/users";
 import { getDepartamentos, getAreas, getCiudades, getVeredas, getLocalidades } from "../api/locations";
 
 const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
@@ -21,6 +21,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
   const [ciudades, setCiudades] = useState([]);
   const [veredas, setVeredas] = useState([]);
   const [localidades, setLocalidades] = useState([]);
+  const [services, setServices] = useState([]);
 
   // 🛠️ Cargar datos del usuario en edición
   useEffect(() => {
@@ -37,6 +38,20 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
         nombre: editingUser.Usua_Name || "",
         mail: editingUser.Usua_Email || "",
       });
+    } else {
+      // 🧼 Limpia el formulario si no hay usuario en edición
+      setUser({
+        phone: "",
+        serv_id: "",
+        dpto_id: "",
+        area_id: "",
+        ciud_id: "",
+        vere_id: "",
+        loca_id: "",
+        cont_id: "",
+        nombre: "",
+        mail: "",
+      });
     }
   }, [editingUser]);
 
@@ -49,7 +64,18 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
         console.error("Error cargando departamentos:", error);
       }
     };
+
+    const fetchServices = async () => {
+      try {
+        const data = await getServices();
+        setServices(data);
+      } catch (error) {
+        console.error("Error cargando servicios:", error);
+      }
+    };
+
     fetchDepartamentos();
+    fetchServices();
   }, []);
 
   const handleChange = async (e) => {
@@ -116,7 +142,15 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
       <input type="text" name="nombre" value={user.nombre} onChange={handleChange} placeholder="Nombre" required />
       <input type="text" name="mail" value={user.mail} onChange={handleChange} placeholder="Mail" required />
       <input type="text" name="phone" value={user.phone} onChange={handleChange} placeholder="Teléfono" required />
-      <input type="number" name="serv_id" value={user.serv_id} onChange={handleChange} placeholder="Servicio ID" required />
+      <select name="serv_id" value={user.serv_id} onChange={handleChange} required>
+        <option value="">Seleccione un Servicio</option>
+        {services.map((s) => (
+          <option key={s.Serv_ID} value={s.Serv_ID}>
+            {s.Serv_Name}
+          </option>
+        ))}
+      </select>
+
 
       <select name="dpto_id" value={user.dpto_id} onChange={handleChange} required>
         <option value="">Seleccione un Departamento</option>

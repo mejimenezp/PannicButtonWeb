@@ -6,7 +6,9 @@ import "../assets/css/admin.css";
 const AdminContacts = () => {
   const [contacts, setContacts] = useState([]);
   const [editingContact, setEditingContact] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Carga inicial de contactos
   useEffect(() => {
     loadContacts();
   }, []);
@@ -20,8 +22,17 @@ const AdminContacts = () => {
     }
   };
 
+  // Control de la barra lateral
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  const handleAddNew = () => {
+    setEditingContact(null);
+    setIsSidebarOpen(true);
+  };
+
   const handleEdit = (contact) => {
     setEditingContact(contact);
+    setIsSidebarOpen(true);
   };
 
   const handleDelete = async (id) => {
@@ -39,8 +50,21 @@ const AdminContacts = () => {
     <div className="admin-container">
       <h2>Administración de Contactos</h2>
 
-      {/* Formulario para agregar/editar contacto */}
-      <ContactForm loadContacts={loadContacts} editingContact={editingContact} setEditingContact={setEditingContact} />
+      {/* Botón para agregar nuevo contacto */}
+      <button className="btn btn-add" onClick={handleAddNew}>
+        ➕ Agregar Contacto
+      </button>
+
+      {/* Barra lateral con formulario */}
+      <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
+        <button onClick={toggleSidebar} className="btn btn-close">
+                  </button>
+        <ContactForm
+          loadContacts={loadContacts}
+          editingContact={editingContact}
+          setEditingContact={setEditingContact}
+        />
+      </div>
 
       {/* Tabla de contactos */}
       <div className="table-container">
@@ -63,9 +87,9 @@ const AdminContacts = () => {
             {contacts.length > 0 ? (
               contacts.map((contact) => (
                 <tr key={contact.Cont_ID}>
-                  <td>{contact.Cont_Name}</td>
+                  <td title={contact.Cont_Name}>{contact.Cont_Name}</td>
                   <td>{contact.Cont_Phone}</td>
-                  <td>{contact.Cont_Email}</td>
+                  <td title={contact.Cont_Email}>{contact.Cont_Email}</td>
                   <td>{contact.TipoContacto || "No especificado"}</td>
                   <td>{contact.Departamento || "No especificado"}</td>
                   <td>{contact.Area || "No especificada"}</td>
@@ -73,8 +97,18 @@ const AdminContacts = () => {
                   <td>{contact.Vereda || "No especificada"}</td>
                   <td>{contact.Localidad || "No especificada"}</td>
                   <td>
-                    <button className="btn btn-edit" onClick={() => handleEdit(contact)}>✏️ Editar</button>
-                    <button className="btn btn-delete" onClick={() => handleDelete(contact.Cont_ID)}>🗑 Eliminar</button>
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => handleEdit(contact)}
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      className="btn btn-delete"
+                      onClick={() => handleDelete(contact.Cont_ID)}
+                    >
+                      🗑
+                    </button>
                   </td>
                 </tr>
               ))
