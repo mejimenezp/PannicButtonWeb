@@ -7,10 +7,12 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Privacidad from "./pages/privacidadTerms";
-import Soporte from "./pages/soporte";   
+import Soporte from "./pages/soporte";
 import Admin from "./pages/AdminUser";
 import AdminContacts from "./pages/AdminContac";
 import AdminDashboard from "./pages/AdminDashboard";
+import Login from "./pages/Login";
+import PrivateRoute from "./routes/PrivateRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -21,27 +23,22 @@ import "./assets/css/Home.css";
 import "./assets/css/about.css";
 import "./assets/css/Footer.css";
 
-
 function App() {
   return (
     <Router>
       <Header />
       <Routes>
         {/* Página principal con todas las secciones */}
-        <Route path="/" element={
-          <>
-            <Home />
-            <Features />
-            <About />
-            <Contact />
-          </>
-        } />
-
+        <Route path="/" element={<><Home /><Features /><About /><Contact /></>} />
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/soporte" element={<Soporte />} />
-        <Route path="/admin" element={<AdminDashboard/>} />
-        <Route path="/adminUsers" element={<Admin/>} />
-        <Route path="/adminContacts" element={<AdminContacts/>} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Rutas protegidas según rol */}
+        <Route path="/admin" element={<PrivateRoute role="4"><AdminDashboard /></PrivateRoute>} />
+        <Route path="/adminUsers" element={<PrivateRoute role="4"><Admin /></PrivateRoute>} />
+        <Route path="/adminContacts" element={<PrivateRoute role="4"><AdminContacts /></PrivateRoute>} />
+        <Route path="/soporte" element={<PrivateRoute role="2"><Soporte /></PrivateRoute>} />
       </Routes>
       <Footer />
     </Router>

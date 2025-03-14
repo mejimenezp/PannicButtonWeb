@@ -219,3 +219,48 @@ td .btn-container {
 .sidebar-container.open {
   right: 0;
 }
+
+.actions-cell {
+  text-align: center;
+  padding: 8px;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* Botón de acciones con estilo */
+.actions-cell button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+ 
+  font-size: 1rem;
+}
+
+/* Efecto hover para el botón */
+.actions-cell button:hover {
+  background-color: #388e3c;
+  transform: scale(1.1);
+}
+
+/* Botón más pequeño y más elegante */
+.actions-cell .btn-more {
+ 
+  padding: 6px 10px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto hover especial para el botón de acciones */
+.actions-cell .btn-more:hover {
+ 
+  transform: rotate(90deg);
+}
+
+/* Opcional: Espaciado entre los botones si hay más de uno */
+.actions-cell button:not(:last-child) {
+  margin-right: 8px;
+}

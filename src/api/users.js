@@ -30,3 +30,8 @@ export const getServices = async () => {
   const response = await api.get("/servicios");
   return response.data;
 };
+
+export const getUserContacts = async (phone) => {
+  const { data } = await api.get(`/contacts/${phone}`);
+  return data;
+};

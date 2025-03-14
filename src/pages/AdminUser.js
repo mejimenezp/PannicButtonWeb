@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { getUsers, deleteUser } from "../api/users";
+import { getUsers, deleteUser, getUserContacts } from "../api/users";
 import UserForm from "../components/UserForm";
+import Modal from "../components/Modal";
+import ActionModal from "../components/ActionModal"; // Importamos el nuevo modal
 import "../assets/css/admin.css";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userContacts, setUserContacts] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [actionUser, setActionUser] = useState(null);
 
   useEffect(() => {
     loadUsers();
@@ -23,11 +29,8 @@ const Admin = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  
-    // Limpia el formulario al cerrar
     if (isSidebarOpen) setEditingUser(null);
   };
-  
 
   const handleAddNew = () => {
     setEditingUser(null);
@@ -37,6 +40,7 @@ const Admin = () => {
   const handleEdit = (user) => {
     setEditingUser(user);
     setIsSidebarOpen(true);
+    setActionUser(null);
   };
 
   const handleDelete = async (id) => {
@@ -48,21 +52,34 @@ const Admin = () => {
         console.error("❌ Error al eliminar usuario:", error);
       }
     }
+    setActionUser(null);
   };
+
+  const handleShowContacts = async (user) => {
+    setSelectedUser(user);
+    try {
+      const contacts = await getUserContacts(user.Usua_Phone);
+      setUserContacts(contacts);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("❌ Error al cargar contactos:", error);
+    }
+    setActionUser(null);
+  };
+
+  const openActionsModal = (user) => setActionUser(user);
+  const closeActionsModal = () => setActionUser(null);
 
   return (
     <div className="admin-container">
       <h2>Administración de Usuarios</h2>
 
-      {/* Botón para agregar nuevo usuario */}
       <button className="btn btn-add" onClick={handleAddNew}>
         ➕ Agregar Usuario
       </button>
 
-      {/* Barra lateral con formulario */}
       <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
-        <button onClick={toggleSidebar} className="btn btn-close">
-        </button>
+        <button onClick={toggleSidebar} className="btn btn-close"></button>
         <UserForm
           loadUsers={loadUsers}
           editingUser={editingUser}
@@ -70,7 +87,6 @@ const Admin = () => {
         />
       </div>
 
-      {/* Tabla de usuarios */}
       <div className="table-container">
         <table>
           <thead>
@@ -100,18 +116,12 @@ const Admin = () => {
                   <td>{user.Ciudad || "No especificada"}</td>
                   <td>{user.Vereda || "No especificada"}</td>
                   <td>{user.Localidad || "No especificada"}</td>
-                  <td>
+                  <td className="actions-cell">
                     <button
-                      className="btn btn-edit"
-                      onClick={() => handleEdit(user)}
+                      className="btn btn-more"
+                      onClick={() => openActionsModal(user)}
                     >
-                      ✏️
-                    </button>
-                    <button
-                      className="btn btn-delete"
-                      onClick={() => handleDelete(user.Usua_ID)}
-                    >
-                      🗑
+                      ⋮
                     </button>
                   </td>
                 </tr>
@@ -126,6 +136,31 @@ const Admin = () => {
           </tbody>
         </table>
       </div>
+
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <h3>Contactos de {selectedUser?.Usua_Name}</h3>
+          {userContacts.length > 0 ? (
+            <ul>
+              {userContacts.map((contact, index) => (
+                <li key={index}>
+                  📞  {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Este usuario no tiene contactos asociados.</p>
+          )}
+        </Modal>
+      )}
+
+      <ActionModal
+        user={actionUser}
+        onClose={closeActionsModal}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onShowContacts={handleShowContacts}
+      />
     </div>
   );
 };
