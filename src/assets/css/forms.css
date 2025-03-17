@@ -20,10 +20,10 @@
 }
 
 input, select {
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 5px;
+  font-size:12px;
   transition: 0.3s ease-in-out;
   background: #fff;
   width: 100%;
@@ -38,7 +38,7 @@ input:focus, select:focus {
 }
 
 button {
-  padding: 10px 15px;
+  padding: 8px 10px;
   background: linear-gradient(145deg, #4a4e69, #3c3e56);
   color: #fff;
   border: none;
@@ -73,4 +73,28 @@ select:disabled {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+/* Ajuste para que el form no se corte */
+.sidebar-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 80vh; /* Máxima altura para evitar que se desborde */
+  overflow-y: auto; /* Agrega scroll si se pasa */
+  padding-right: 5px; /* Espacio para el scroll */
+}
+
+/* Mejora de inputs y selects en pantallas pequeñas */
+@media (max-width: 500px) {
+  .sidebar-container form {
+    max-height: 70vh; /* Un poco más pequeño para móviles */
+    padding-right: 0; 
+  }
+
+  input,
+  select,
+  button {
+    font-size: 13px;
+    padding: 6px;
+  }
 }

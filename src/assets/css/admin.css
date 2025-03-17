@@ -264,3 +264,28 @@ td .btn-container {
 .actions-cell button:not(:last-child) {
   margin-right: 8px;
 }
+/* --- Mejoras finales para scroll y acciones pegadas --- */
+
+/* Contenedor de tabla con scroll mejorado */
+.table-container {
+  overflow: auto;
+  max-height:400px; /* Ajusta según la altura que prefieras */
+  position: relative;
+}
+
+
+
+
+
+/* Asegura que las filas no se distorsionen al hacer hover */
+tbody tr:hover {
+  transform: none;
+}
+
+/* Ajuste para que las filas mantengan el ancho fijo */
+tbody td {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
