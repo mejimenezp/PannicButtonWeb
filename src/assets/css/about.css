@@ -1,106 +1,88 @@
-/* Estilos generales */
+/* Sección principal centrada */
 .about_section {
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
-/* Contenedor principal */
-.container {
-  max-width: 1200px;
-  margin: auto;
+/* Caja de texto */
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  max-width: 500px;
 }
 
-/* Ajustes de la imagen */
-.app-carousel img {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-/* Efecto hover solo en desktop */
-.app-carousel img:hover {
-  transform: scale(1.05);
-}
-
-/* Detalles de texto */
+/* Título grande y destacado */
 .detail-box h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #222;
   margin-bottom: 10px;
-  color: #333;
 }
 
+/* Texto claro y legible */
 .detail-box p {
   font-size: 1.2rem;
-  line-height: 1.5;
   color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
 }
 
-/* Botón estilizado */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
+/* Botón bien alineado debajo */
+.detail-box .btn {
+  padding: 12px 25px;
   background: linear-gradient(45deg, #fc913a, #ff4e50);
   color: #fff;
-  border-radius: 25px;
-  font-size: 1rem;
-  transition: transform 0.2s ease;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
   text-decoration: none;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+  margin-top: 10px;
+  display: inline-block; /* Asegura que el botón no se solape */
 }
 
-/* Botón efecto hover */
-.btn:hover {
-  transform: translateY(-2px);
+/* Efecto hover para el botón */
+.detail-box .btn:hover {
+  transform: translateY(-3px);
 }
 
-/* 🚀 Modo responsivo actualizado */
+/* Imagen estilizada */
+.app-carousel img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modo responsivo */
 @media (max-width: 768px) {
-  .about_section .row {
-    flex-direction: column-reverse;
-    text-align: center;
+  .about_section {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .app-carousel {
-    max-width: 100%;
-  }
-
-  .app-carousel img {
-    max-width: 300px;
-    margin: auto;
-  }
-
-  /* Botón encima del texto */
-  .detail-box {
-    position: relative;
-    margin-top: -50px; /* Levantamos el texto hacia arriba */
-    z-index: 1;
-  }
-
-  .btn {
-    position: absolute;
-    top: -40px; /* Colocamos el botón encima del texto */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* Ajuste de texto más pequeño en móviles */
   .detail-box h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .detail-box p {
     font-size: 1rem;
-    line-height: 1.4;
+  }
+
+  .app-carousel img {
+    max-width: 200px;
   }
 
   .btn {
-    padding: 8px 15px;
-    font-size: 0.9rem;
+    width: 80%;
+    font-size: 1rem;
   }
 }
