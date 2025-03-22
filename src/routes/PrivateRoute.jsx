@@ -1,15 +1,23 @@
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { isAuthenticated, getUserRole } from "../api/admin";
 
 const PrivateRoute = ({ children, allowedRoles = [] }) => {
-  const isLoggedIn = isAuthenticated();
+  const [isValid, setIsValid] = useState(null);
   const userRole = getUserRole();
 
-  console.log("🔍 Validando acceso - Rol:", userRole);
+  useEffect(() => {
+    const checkToken = async () => {
+      const valid = await isAuthenticated();
+      setIsValid(valid);
+    };
+    checkToken();
+  }, []);
 
-  // Si el usuario no está logueado o no tiene el rol adecuado
-  if (!isLoggedIn) {
-    console.warn("🚫 Usuario no autenticado, redirigiendo a login.");
+  if (isValid === null) return <div>🔄 Cargando...</div>;
+
+  if (!isValid) {
+    console.warn("🚫 Token inválido o expirado, redirigiendo a login.");
     return <Navigate to="/login" replace />;
   }
 

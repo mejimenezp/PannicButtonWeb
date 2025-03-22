@@ -9,7 +9,7 @@ export const login = async (phone, email) => {
     if (token && role) {
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
-      return { success: true, role };
+      return { success: true, role, token };
     }
 
     return { success: false };
@@ -25,10 +25,30 @@ export const logout = () => {
   localStorage.removeItem("role");
 };
 
-// Verificar si el usuario está autenticado
-export const isAuthenticated = () => {
+// ✅ Nueva función para validar el token en el backend
+export const validateToken = async () => {
   const token = localStorage.getItem("token");
-  return !!token;
+  if (!token) return false;
+
+  try {
+    const response = await api.get("/auth/validate", {headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data.valid;
+  } catch (error) {
+    console.error("❌ Error al validar el token:", error.response?.data || error.message);
+    return false;
+  }
+};
+
+
+
+// Verificar si el usuario está autenticado (token presente y válido)
+export const isAuthenticated = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return false;
+
+  return await validateToken();
 };
 
 // Obtener el rol del usuario
