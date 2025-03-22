@@ -15,7 +15,7 @@ const Header = () => {
 
             <a href="mailto:soporte.botondepanico@gmail.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>
-              <span>Email: soporte.botondepanico@gmail.com</span>
+              <span>Email: soporte@fte.com.co</span>
             </a>
           </div>
         </div>

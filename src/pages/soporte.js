@@ -28,7 +28,7 @@ const Soporte = () => {
           <h2>Contacto</h2>
           <p>Si necesitas asistencia, puedes comunicarte con nosotros a través de los siguientes medios:</p>
           <ul>
-            <li>Correo electrónico: <a href="mailto:soporte.botondepanico@gmail.com">soporte.botondepanico@gmail.com</a></li>
+            <li>Correo electrónico: <a href="mailto:soporte@fte.com.co">soporte@fte.com.co</a></li>
             <li>Teléfono: +57 3057101857</li>
             <li>Dirección:Carrera 18 # 15-25  socorro Santander</li>
           </ul>
