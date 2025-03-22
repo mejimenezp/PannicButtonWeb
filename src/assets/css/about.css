@@ -1,18 +1,88 @@
-.app-carousel {
-    width: 100%;
-    max-width: 500px;
-    margin: 20px auto;
-  }
-  
-  .app-carousel img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .text-center {
+/* Ajustes generales */
+.about_section {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Ajustes de la imagen */
+.app-carousel img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+/* Efecto hover en la imagen */
+.app-carousel img:hover {
+  transform: scale(1.05);
+}
+
+/* Detalles de texto */
+.detail-box h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.detail-box p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Botón estilizado */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #fc913a, #ff4e50);
+  color: #fff;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 🚀 Modo responsivo mejorado */
+@media (max-width: 768px) {
+  .about_section .row {
+    flex-direction: column-reverse; /* Texto arriba, imagen abajo */
     text-align: center;
-    margin-bottom: 15px;
   }
- 
-  
+
+  .app-carousel {
+    max-width: 100%;
+  }
+
+  .app-carousel img {
+    max-width: 300px; /* Imagen más pequeña */
+    margin: auto;
+  }
+
+  .detail-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .detail-box p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

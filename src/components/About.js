@@ -17,6 +17,11 @@ const About = () => {
     <section className="about_section layout_padding">
       <div className="container">
         <div className="row">
+        <div className="col-lg-7 col-md-6">
+            <div className="img-box">
+              <img src={aboutImage} alt="Botón de Pánico" />
+            </div>
+          </div>
           <div className="col-lg-5 col-md-6">
             <div className="detail-box">
               <h2>¿Qué es el Botón de Pánico?</h2>
@@ -26,12 +31,6 @@ const About = () => {
                 Diseñada para brindarte seguridad en situaciones críticas.
               </p>
               <Link to="/privacidad" className="btn">Más Información</Link>
-            </div>
-          </div>
-
-          <div className="col-lg-7 col-md-6">
-            <div className="img-box">
-              <img src={aboutImage} alt="Botón de Pánico" />
             </div>
           </div>
         </div>
