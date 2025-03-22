@@ -59,7 +59,7 @@
   transform: translateY(-2px);
 }
 
-/* 🚀 Modo responsivo actualizado */
+/* 🚀 Modo responsivo corregido */
 @media (max-width: 768px) {
   .about_section .row {
     flex-direction: column-reverse;
@@ -75,18 +75,18 @@
     margin: auto;
   }
 
-  /* Botón encima del texto */
+  /* Arreglamos el botón y texto encima de la imagen */
   .detail-box {
     position: relative;
-    margin-top: -50px; /* Levantamos el texto hacia arriba */
+    margin-top: 0; /* Quitamos el margen negativo */
     z-index: 1;
+    padding-top: 10px; /* Espaciado extra entre imagen y texto */
   }
 
   .btn {
-    position: absolute;
-    top: -40px; /* Colocamos el botón encima del texto */
-    left: 50%;
-    transform: translateX(-50%);
+    position: static; /* Dejamos el botón en el flujo normal */
+    margin-top: 10px; /* Espacio entre el texto y el botón */
+    transform: none; /* Quitamos el centrado forzado */
   }
 
   /* Ajuste de texto más pequeño en móviles */
@@ -104,3 +104,4 @@
     font-size: 0.9rem;
   }
 }
+
