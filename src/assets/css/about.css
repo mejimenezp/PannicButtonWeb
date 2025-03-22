@@ -1,4 +1,4 @@
-/* Ajustes generales */
+/* Estilos generales */
 .about_section {
   padding: 20px;
   display: flex;
@@ -20,7 +20,7 @@
   transition: transform 0.3s ease;
 }
 
-/* Efecto hover en la imagen */
+/* Efecto hover solo en desktop */
 .app-carousel img:hover {
   transform: scale(1.05);
 }
@@ -48,18 +48,21 @@
   font-size: 1rem;
   transition: transform 0.2s ease;
   text-decoration: none;
-  margin-top: 15px;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* 🚀 Modo responsivo mejorado */
+/* Botón efecto hover */
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* 🚀 Modo responsivo actualizado */
 @media (max-width: 768px) {
   .about_section .row {
-    flex-direction: column-reverse; /* Texto arriba, imagen abajo */
+    flex-direction: column-reverse;
     text-align: center;
   }
 
@@ -68,10 +71,25 @@
   }
 
   .app-carousel img {
-    max-width: 300px; /* Imagen más pequeña */
+    max-width: 300px;
     margin: auto;
   }
 
+  /* Botón encima del texto */
+  .detail-box {
+    position: relative;
+    margin-top: -50px; /* Levantamos el texto hacia arriba */
+    z-index: 1;
+  }
+
+  .btn {
+    position: absolute;
+    top: -40px; /* Colocamos el botón encima del texto */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Ajuste de texto más pequeño en móviles */
   .detail-box h2 {
     font-size: 1.5rem;
   }
