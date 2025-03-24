@@ -144,7 +144,7 @@ const Admin = () => {
       <ul>
         {userContacts.map((contact, index) => (
           <li key={index}>
-            📞 {contact.Name} - {contact.Phone} - {contact.Email}  
+            📞 {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
             <br />
             🏷️ <strong>{contact.Grupo}</strong>
           </li>
