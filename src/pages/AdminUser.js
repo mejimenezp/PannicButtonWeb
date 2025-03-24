@@ -138,21 +138,24 @@ const Admin = () => {
       </div>
 
       {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <h3>Contactos de {selectedUser?.Usua_Name}</h3>
-          {userContacts.length > 0 ? (
-            <ul>
-              {userContacts.map((contact, index) => (
-                <li key={index}>
-                  📞  {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Este usuario no tiene contactos asociados.</p>
-          )}
-        </Modal>
-      )}
+  <Modal onClose={() => setIsModalOpen(false)}>
+    <h3>Contactos de {selectedUser?.Usua_Name}</h3>
+    {userContacts.length > 0 ? (
+      <ul>
+        {userContacts.map((contact, index) => (
+          <li key={index}>
+            📞 {contact.Name} - {contact.Phone} - {contact.Email}  
+            <br />
+            🏷️ <strong>{contact.Grupo}</strong>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>Este usuario no tiene contactos asociados.</p>
+    )}
+  </Modal>
+)}
+
 
       <ActionModal
         user={actionUser}

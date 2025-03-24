@@ -39,20 +39,7 @@
 }
 
 /* Botón estilizado */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(45deg, #fc913a, #ff4e50);
-  color: #fff;
-  border-radius: 25px;
-  font-size: 1rem;
-  transition: transform 0.2s ease;
-  text-decoration: none;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+
 
 /* Botón efecto hover */
 .btn:hover {
