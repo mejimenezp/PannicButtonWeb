@@ -39,17 +39,36 @@
 }
 
 /* 🎯 Logo Fundación */
+/* 🔹 Quitar el borde azul en enlaces */
 .logo-link {
-  display: inline-block; /* Evita que el <a> ocupe todo el ancho */
-  text-decoration: none; /* Quita el subrayado */
-  background: transparent !important; /* Asegura que no tenga fondo */
+  display: inline-block;
+  text-decoration: none;
+  background: transparent !important;
+  border: none;
+  outline: none;
 }
 
+/* 🔹 Evita el borde azul al hacer clic o enfocar */
+.logo-link:focus,
+.logo-link:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 🔹 Ajustes del logo */
 .logo-fundacion {
   height: 60px;
-  display: inline-block;
-  background: transparent !important; /* Evita fondo heredado */
+  display: block;
+  margin: auto;
+  background: transparent !important;
 }
+.logo-link:hover .logo-fundacion {
+  transform: scale(1.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 
 /* 🟢 Botón "Más Información" */
 .btn {
