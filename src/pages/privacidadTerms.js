@@ -23,7 +23,7 @@ const Privacidad = () => {
           <p>Mantenemos medidas de seguridad estrictas para proteger tu información personal.</p>
           
           <h2>4. Contacto</h2>
-          <p>Si tienes preguntas sobre nuestra política de privacidad, contáctanos en <a href="mailto:soporte@fte.com.co">soporte@botondepanico.com</a>.</p>
+          <p>Si tienes preguntas sobre nuestra política de privacidad, contáctanos en <a href="mailto:soporte@fte.com.co">soporte@fte.com.co</a>.</p>
           
           <div className="back-button">
             <Link to="/" className="btn">Volver al inicio</Link>
