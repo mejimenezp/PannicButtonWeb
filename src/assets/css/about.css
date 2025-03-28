@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* 🎨 Estilos Generales */
 .about_section {
   padding: 20px;
   display: flex;
@@ -6,13 +6,13 @@
   align-items: center;
 }
 
-/* Contenedor principal */
+/* 📦 Contenedor Principal */
 .container {
   max-width: 1200px;
   margin: auto;
 }
 
-/* Ajustes de la imagen */
+/* 🖼️ Ajustes de la Imagen */
 .app-carousel img {
   width: 100%;
   border-radius: 10px;
@@ -20,12 +20,12 @@
   transition: transform 0.3s ease;
 }
 
-/* Efecto hover solo en desktop */
+/* 🎭 Efecto Hover Solo en Desktop */
 .app-carousel img:hover {
   transform: scale(1.05);
 }
 
-/* Detalles de texto */
+/* 📝 Estilos del Texto */
 .detail-box h2 {
   font-size: 2rem;
   margin-bottom: 10px;
@@ -38,15 +38,37 @@
   color: #555;
 }
 
-/* Botón estilizado */
-
-
-/* Botón efecto hover */
-.btn:hover {
-  transform: translateY(-2px);
+/* 🎯 Logo Fundación */
+.logo-link {
+  display: inline-block; /* Evita que el <a> ocupe todo el ancho */
+  text-decoration: none; /* Quita el subrayado */
+  background: transparent !important; /* Asegura que no tenga fondo */
 }
 
-/* 🚀 Modo responsivo corregido */
+.logo-fundacion {
+  height: 60px;
+  display: inline-block;
+  background: transparent !important; /* Evita fondo heredado */
+}
+
+/* 🟢 Botón "Más Información" */
+.btn {
+  display: inline-block;
+  background: #007bff; /* Color azul */
+  color: #fff; /* Texto blanco */
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: #0056b3; /* Azul más oscuro */
+}
+
+/* 📱 Modo Responsivo */
 @media (max-width: 768px) {
   .about_section .row {
     flex-direction: column-reverse;
@@ -62,21 +84,14 @@
     margin: auto;
   }
 
-  /* Arreglamos el botón y texto encima de la imagen */
+  /* 📝 Ajustes en Móvil */
   .detail-box {
     position: relative;
-    margin-top: 0; /* Quitamos el margen negativo */
     z-index: 1;
-    padding-top: 10px; /* Espaciado extra entre imagen y texto */
+    padding-top: 10px;
   }
 
-  .btn {
-    position: static; /* Dejamos el botón en el flujo normal */
-    margin-top: 10px; /* Espacio entre el texto y el botón */
-    transform: none; /* Quitamos el centrado forzado */
-  }
-
-  /* Ajuste de texto más pequeño en móviles */
+  /* 🔹 Texto más pequeño en móviles */
   .detail-box h2 {
     font-size: 1.5rem;
   }
@@ -86,9 +101,10 @@
     line-height: 1.4;
   }
 
+  /* 🔵 Botón en Móvil */
   .btn {
     padding: 8px 15px;
     font-size: 0.9rem;
+    margin-top: 10px;
   }
 }
-
