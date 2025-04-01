@@ -1,14 +1,23 @@
 import api from "./api";
+import { jwtDecode } from "jwt-decode";
 
 // Iniciar sesión
 export const login = async (phone, email) => {
   try {
     const response = await api.post("/auth/login", { phone, email });
-    const { token, role } = response.data;
+    const { token} = response.data;
 
-    if (token && role) {
+    if (token) {
+
+      const decoded = jwtDecode(token);
+      const serv_id = decoded.serv_id;
+      const role = decoded.role;
+      const id = decoded.id;
+
       localStorage.setItem("token", token);
+      localStorage.setItem("serv_id", serv_id);
       localStorage.setItem("role", role);
+      localStorage.setItem("id", id);
       return { success: true, role, token };
     }
 
@@ -54,4 +63,7 @@ export const isAuthenticated = async () => {
 // Obtener el rol del usuario
 export const getUserRole = () => {
   return localStorage.getItem("role");
+};
+export const getUserService = () => {
+  return localStorage.getItem("serv_id");
 };

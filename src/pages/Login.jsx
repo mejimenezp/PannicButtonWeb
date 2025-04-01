@@ -18,7 +18,7 @@ const Login = () => {
       localStorage.setItem("role", role);
 
       if (role === "admin") navigate("/admin");
-      else if (role === "support") navigate("/support");
+      else if (role === "support") navigate("/admin");
       else setError("Acceso no autorizado");
     } catch (error) {
       console.error("❌ Error de inicio de sesión:", error);

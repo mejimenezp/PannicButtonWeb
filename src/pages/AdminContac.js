@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getContacts, deleteContact } from "../api/contacts";
+import { getContacts, deleteContact} from "../api/contacts";
+import { getSupportContacts} from "../api/soporte";
 import ContactForm from "../components/ContactForm";
 import "../assets/css/admin.css";
 
@@ -15,7 +16,15 @@ const AdminContacts = () => {
 
   const loadContacts = async () => {
     try {
-      const data = await getContacts();
+      const role = localStorage.getItem("role"); // Obtener el rol del usuario
+      let data;
+
+      if (role === "support") { // Si es un usuario de soporte
+        data = await getSupportContacts(); // Llama a la nueva función con cont_id
+      } else {
+        data = await getContacts(); // Obtiene todos los contactos para otros roles
+      }
+
       setContacts(data);
     } catch (error) {
       console.error("❌ Error al cargar contactos:", error);
@@ -57,8 +66,7 @@ const AdminContacts = () => {
 
       {/* Barra lateral con formulario */}
       <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
-        <button onClick={toggleSidebar} className="btn btn-close">
-                  </button>
+        <button onClick={toggleSidebar} className="btn btn-close"></button>
         <ContactForm
           loadContacts={loadContacts}
           editingContact={editingContact}

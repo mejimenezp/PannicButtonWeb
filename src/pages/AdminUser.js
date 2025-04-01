@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getUsers, deleteUser, getUserContacts } from "../api/users";
+import { getSupportUsers } from "../api/soporte"; // Importar la nueva función
 import UserForm from "../components/UserForm";
 import Modal from "../components/Modal";
-import ActionModal from "../components/ActionModal"; // Importamos el nuevo modal
+import ActionModal from "../components/ActionModal"; 
 import "../assets/css/admin.css";
 
 const Admin = () => {
@@ -20,7 +21,15 @@ const Admin = () => {
 
   const loadUsers = async () => {
     try {
-      const data = await getUsers();
+      const role = localStorage.getItem("role"); // Obtener el rol del usuario
+      let data;
+
+      if (role === "support") { // Si es usuario de soporte
+        data = await getSupportUsers();
+      } else {
+        data = await getUsers();
+      }
+
       setUsers(data);
     } catch (error) {
       console.error("❌ Error al cargar usuarios:", error);
@@ -138,24 +147,23 @@ const Admin = () => {
       </div>
 
       {isModalOpen && (
-  <Modal onClose={() => setIsModalOpen(false)}>
-    <h3>Contactos de {selectedUser?.Usua_Name}</h3>
-    {userContacts.length > 0 ? (
-      <ul>
-        {userContacts.map((contact, index) => (
-          <li key={index}>
-            📞 {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
-            <br />
-            🏷️ <strong>{contact.Grupo}</strong>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>Este usuario no tiene contactos asociados.</p>
-    )}
-  </Modal>
-)}
-
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <h3>Contactos de {selectedUser?.Usua_Name}</h3>
+          {userContacts.length > 0 ? (
+            <ul>
+              {userContacts.map((contact, index) => (
+                <li key={index}>
+                  📞 {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
+                  <br />
+                  🏷️ <strong>{contact.Grupo}</strong>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Este usuario no tiene contactos asociados.</p>
+          )}
+        </Modal>
+      )}
 
       <ActionModal
         user={actionUser}
