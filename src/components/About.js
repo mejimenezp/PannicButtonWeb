@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import aboutImage from "../assets/images/BAnner.png";
-import LogoFundacion from "../assets/images/logo.png";
+import LogoFundacion from "../assets/images/banner_mobiler.png";
 
 const About = () => {
   return (

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getUsers, deleteUser, getUserContacts } from "../api/users";
-import { getSupportUsers } from "../api/soporte"; // Importar la nueva función
+import { getSupportUsers } from "../api/soporte";
 import UserForm from "../components/UserForm";
+import SupportUserForm from "../components/SupportUserForm";
 import Modal from "../components/Modal";
 import ActionModal from "../components/ActionModal"; 
 import "../assets/css/admin.css";
@@ -15,24 +16,30 @@ const Admin = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [actionUser, setActionUser] = useState(null);
 
+  // Obtener información del usuario actual
+  const currentUserRole = localStorage.getItem("role");
+  const isSupport = currentUserRole === "support";
+  const currentUserServId = parseInt(localStorage.getItem("serv_id") || "0");
+  const currentUserLevels = {
+    serv_id: currentUserServId,
+    dpto_id: localStorage.getItem("Dpto_ID"),
+    area_id: localStorage.getItem("Area_ID"),
+    ciud_id: localStorage.getItem("Ciud_ID"),
+    vere_id: localStorage.getItem("Vere_ID"),
+    loca_id: localStorage.getItem("Loca_ID")
+  };
+
   useEffect(() => {
     loadUsers();
   }, []);
 
   const loadUsers = async () => {
     try {
-      const role = localStorage.getItem("role"); // Obtener el rol del usuario
-      let data;
-
-      if (role === "support") { // Si es usuario de soporte
-        data = await getSupportUsers();
-      } else {
-        data = await getUsers();
-      }
-
+      const data = isSupport ? await getSupportUsers(currentUserServId) : await getUsers();
       setUsers(data);
     } catch (error) {
-      console.error("❌ Error al cargar usuarios:", error);
+      console.error("Error al cargar usuarios:", error);
+      alert("Error al cargar usuarios");
     }
   };
 
@@ -47,19 +54,21 @@ const Admin = () => {
   };
 
   const handleEdit = (user) => {
+   
     setEditingUser(user);
     setIsSidebarOpen(true);
     setActionUser(null);
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("¿Estás seguro de eliminar este usuario?")) {
-      try {
-        await deleteUser(id);
-        loadUsers();
-      } catch (error) {
-        console.error("❌ Error al eliminar usuario:", error);
-      }
+    if (!window.confirm("¿Estás seguro de eliminar este usuario?")) return;
+    
+    try {
+      await deleteUser(id);
+      loadUsers();
+    } catch (error) {
+      console.error("Error al eliminar usuario:", error);
+      alert("No tienes permisos para esta acción");
     }
     setActionUser(null);
   };
@@ -71,7 +80,7 @@ const Admin = () => {
       setUserContacts(contacts);
       setIsModalOpen(true);
     } catch (error) {
-      console.error("❌ Error al cargar contactos:", error);
+      console.error("Error al cargar contactos:", error);
     }
     setActionUser(null);
   };
@@ -81,21 +90,41 @@ const Admin = () => {
 
   return (
     <div className="admin-container">
-      <h2>Administración de Usuarios</h2>
+      <h2>
+        {isSupport ? "Administración de Usuarios (Soporte)" : "Administración de Usuarios"}
+      </h2>
 
-      <button className="btn btn-add" onClick={handleAddNew}>
-        ➕ Agregar Usuario
-      </button>
+      {/* Mostrar botón solo para admin */}
+     
+        <button className="btn btn-add" onClick={handleAddNew}>
+          ➕ Agregar Usuario
+        </button>
+      
 
+      {/* Sidebar con formulario */}
       <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
         <button onClick={toggleSidebar} className="btn btn-close"></button>
-        <UserForm
-          loadUsers={loadUsers}
-          editingUser={editingUser}
-          setEditingUser={setEditingUser}
-        />
+        
+        {/* Seleccionar formulario basado en rol */}
+        {isSupport ? (
+          <SupportUserForm
+            loadUsers={loadUsers}
+            editingUser={editingUser}
+            setEditingUser={setEditingUser}
+            closeForm={() => setIsSidebarOpen(false)}
+            userLevels={currentUserLevels}
+          />
+        ) : (
+          <UserForm
+            loadUsers={loadUsers}
+            editingUser={editingUser}
+            setEditingUser={setEditingUser}
+            closeForm={() => setIsSidebarOpen(false)}
+          />
+        )}
       </div>
 
+      {/* Tabla de usuarios */}
       <div className="table-container">
         <table>
           <thead>
@@ -104,8 +133,8 @@ const Admin = () => {
               <th>Teléfono</th>
               <th>Email</th>
               <th>Servicio</th>
-              <th>Departamento</th>
-              <th>Área</th>
+              {!isSupport && <th>Departamento</th>}
+              {!isSupport && <th>Área</th>}
               <th>Ciudad</th>
               <th>Vereda</th>
               <th>Localidad</th>
@@ -120,8 +149,8 @@ const Admin = () => {
                   <td>{user.Usua_Phone}</td>
                   <td title={user.Usua_Email}>{user.Usua_Email}</td>
                   <td>{user.Servicio || "No especificado"}</td>
-                  <td>{user.Departamento || "No especificado"}</td>
-                  <td>{user.Area || "No especificada"}</td>
+                  {!isSupport && <td>{user.Departamento || "No especificado"}</td>}
+                  {!isSupport && <td>{user.Area || "No especificada"}</td>}
                   <td>{user.Ciudad || "No especificada"}</td>
                   <td>{user.Vereda || "No especificada"}</td>
                   <td>{user.Localidad || "No especificada"}</td>
@@ -129,6 +158,7 @@ const Admin = () => {
                     <button
                       className="btn btn-more"
                       onClick={() => openActionsModal(user)}
+                      
                     >
                       ⋮
                     </button>
@@ -137,7 +167,7 @@ const Admin = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="10" className="no-users">
+                <td colSpan={isSupport ? 8 : 10} className="no-users">
                   No hay usuarios registrados.
                 </td>
               </tr>
@@ -146,11 +176,12 @@ const Admin = () => {
         </table>
       </div>
 
+      {/* Modal de contactos */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <h3>Contactos de {selectedUser?.Usua_Name}</h3>
           {userContacts.length > 0 ? (
-            <ul>
+            <ul className="contacts-list">
               {userContacts.map((contact, index) => (
                 <li key={index}>
                   📞 {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
@@ -165,12 +196,15 @@ const Admin = () => {
         </Modal>
       )}
 
+      {/* Modal de acciones */}
       <ActionModal
         user={actionUser}
         onClose={closeActionsModal}
         onEdit={handleEdit}
         onDelete={handleDelete}
         onShowContacts={handleShowContacts}
+        isSupport={isSupport}
+        currentUserServId={currentUserServId}
       />
     </div>
   );

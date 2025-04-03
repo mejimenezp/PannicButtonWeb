@@ -13,11 +13,21 @@ export const login = async (phone, email) => {
       const serv_id = decoded.serv_id;
       const role = decoded.role;
       const id = decoded.id;
+      const Dpto_ID = decoded.departamento;
+      const Area_ID = decoded.area;
+      const Ciud_ID = decoded.ciudad;
+      const Vere_ID = decoded.vereda;
+      const Loca_ID = decoded.localidad;
 
       localStorage.setItem("token", token);
       localStorage.setItem("serv_id", serv_id);
       localStorage.setItem("role", role);
       localStorage.setItem("id", id);
+      localStorage.setItem("Dpto_ID", Dpto_ID);
+      localStorage.setItem("Area_ID", Area_ID);
+      localStorage.setItem("Ciud_ID", Ciud_ID);
+      localStorage.setItem("Vere_ID", Vere_ID);
+      localStorage.setItem("Loca_ID", Loca_ID);
       return { success: true, role, token };
     }
 
