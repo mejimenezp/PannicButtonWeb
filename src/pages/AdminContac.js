@@ -78,8 +78,8 @@ const AdminContacts = () => {
     <div className="admin-container">
       <h2>
         {isSupport
-          ? "Administración de Usuarios (Soporte)"
-          : "Administración de Usuarios"}
+          ? "Administración de Contacos (Soporte)"
+          : "Administración de Contacos"}
       </h2>
 
       {/* Mostrar el nombre del servicio si existe */}
