@@ -22,6 +22,7 @@ const Admin = () => {
   const currentUserServId = parseInt(localStorage.getItem("serv_id") || "0");
   const currentUserLevels = {
     serv_id: currentUserServId,
+    serv_name: localStorage.getItem("serv_name"),
     dpto_id: localStorage.getItem("Dpto_ID"),
     area_id: localStorage.getItem("Area_ID"),
     ciud_id: localStorage.getItem("Ciud_ID"),
@@ -91,8 +92,18 @@ const Admin = () => {
   return (
     <div className="admin-container">
       <h2>
-        {isSupport ? "Administración de Usuarios (Soporte)" : "Administración de Usuarios"}
+        {isSupport
+          ? "Administración de Usuarios (Soporte)"
+          : "Administración de Usuarios"}
       </h2>
+
+      {/* Mostrar el nombre del servicio si existe */}
+      {isSupport && localStorage.getItem("serv_name") && (
+        <p style={{ marginTop: "-10px", marginBottom: "15px", fontWeight: "500", color: "#444" }}>
+          El usuario soporte tiene el tipo de servico: {localStorage.getItem("serv_name")}
+        </p>
+      )}
+
 
       {/* Mostrar botón solo para admin */}
      
@@ -103,7 +114,22 @@ const Admin = () => {
 
       {/* Sidebar con formulario */}
       <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
-        <button onClick={toggleSidebar} className="btn btn-close"></button>
+      {!isSupport && (
+      <button 
+      onClick={toggleSidebar} 
+      className="btn btn-close" 
+      style={{
+        background: "none",
+        border: "none",
+        display: "flex",
+        alignItems: "center",
+        gap: "5px",
+        color: "#333"
+      }}
+    >
+      Cerrar <span style={{ color: "red" }}>❌</span>
+    </button>
+    )}
         
         {/* Seleccionar formulario basado en rol */}
         {isSupport ? (

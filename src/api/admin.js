@@ -11,6 +11,7 @@ export const login = async (phone, email) => {
 
       const decoded = jwtDecode(token);
       const serv_id = decoded.serv_id;
+      const serv_name = decoded.serv_name;
       const role = decoded.role;
       const id = decoded.id;
       const Dpto_ID = decoded.departamento;
@@ -21,6 +22,7 @@ export const login = async (phone, email) => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("serv_id", serv_id);
+      localStorage.setItem("serv_name",serv_name);
       localStorage.setItem("role", role);
       localStorage.setItem("id", id);
       localStorage.setItem("Dpto_ID", Dpto_ID);

@@ -118,6 +118,25 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
     loadInitialData();
   }, [editingUser]);
 
+  const handleCloseFormUser = () => {
+    setEditingUser(null); 
+  
+    setUser({
+      phone: "",
+      serv_id: userData.serv_id.toString() || "",
+      dpto_id: userData.dpto_id || "",
+      area_id: userData.area_id || "",
+      ciud_id: userData.ciud_id || "",
+      vere_id: userData.vere_id || "",
+      loca_id: userData.loca_id || "",
+      nombre: "",
+      mail: "",
+    });
+  
+    closeForm(); 
+  };
+  
+
   // Manejar cambios en los selects
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -301,14 +320,14 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
       </div>
 
       {/* Campos de ubicación según permisos */}
-      {isFieldEditable('dpto_id') && renderLocationField('dpto', 'Departamento')}
+
       {isFieldEditable('area_id') && renderLocationField('area', 'Área')}
       {isFieldEditable('ciud_id') && renderLocationField('ciud', 'Ciudad')}
       {isFieldEditable('vere_id') && renderLocationField('vere', 'Vereda')}
       {isFieldEditable('loca_id') && renderLocationField('loca', 'Localidad')}
 
       <div className="form-actions">
-        <button type="button" onClick={closeForm}>
+        <button type="button" onClick={handleCloseFormUser}>
           Cancelar
         </button>
         <button type="submit">
