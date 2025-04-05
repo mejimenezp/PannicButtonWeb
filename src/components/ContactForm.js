@@ -52,6 +52,32 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
   }, [editingContact]);
 
   useEffect(() => {
+    const loadLocationDataForEditing = async () => {
+      if (editingContact) {
+        if (editingContact.Dpto_ID) {
+          const fetchedAreas = await getAreas(editingContact.Dpto_ID);
+          setAreas(fetchedAreas);
+        }
+        if (editingContact.Area_ID) {
+          const fetchedCiudades = await getCiudades(editingContact.Area_ID);
+          setCiudades(fetchedCiudades);
+        }
+        if (editingContact.Ciud_ID) {
+          const fetchedVeredas = await getVeredas(editingContact.Ciud_ID);
+          setVeredas(fetchedVeredas);
+        }
+        if (editingContact.Vere_ID) {
+          const fetchedLocalidades = await getLocalidades(editingContact.Vere_ID);
+          setLocalidades(fetchedLocalidades);
+        }
+      }
+    };
+  
+    loadLocationDataForEditing();
+  }, [editingContact]);
+  
+
+  useEffect(() => {
     const fetchDepartamentos = async () => {
       try {
         const data = await getDepartamentos();
