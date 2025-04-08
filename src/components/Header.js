@@ -70,12 +70,16 @@ const Header = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">Inicio</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/soporte">Soporte</Link>
-                </li>
+              {!isLoggedIn && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/">Inicio</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/soporte">Soporte</Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </nav>
