@@ -180,28 +180,28 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
         ))}
       </select>
       <label>Área Actual: {editingContact?.Area}</label>
-      <select name="area_id" value={contact.area_id} onChange={handleChange} required disabled={!areas.length}>
+      <select name="area_id" value={contact.area_id} onChange={handleChange}  disabled={!areas.length}>
         <option value="">Seleccione un Área</option>
         {areas.map((a) => (
           <option key={a.Area_ID} value={a.Area_ID}>{a.Area_Name}</option>
         ))}
       </select>
       <label>Ciudad Actual: {editingContact?.Ciudad}</label>
-      <select name="ciud_id" value={contact.ciud_id} onChange={handleChange} required disabled={!ciudades.length}>
+      <select name="ciud_id" value={contact.ciud_id} onChange={handleChange}  disabled={!ciudades.length}>
         <option value="">Seleccione una Ciudad</option>
         {ciudades.map((c) => (
           <option key={c.Ciud_ID} value={c.Ciud_ID}>{c.Ciud_Name}</option>
         ))}
       </select>
       <label>Vereda Actual: {editingContact?.Vereda}</label>
-      <select name="vere_id" value={contact.vere_id} onChange={handleChange} required disabled={!veredas.length}>
+      <select name="vere_id" value={contact.vere_id} onChange={handleChange}  disabled={!veredas.length}>
         <option value="">Seleccione una Vereda</option>
         {veredas.map((v) => (
           <option key={v.Vere_ID} value={v.Vere_ID}>{v.Vere_Name}</option>
         ))}
       </select>
       <label>Localidad Actual: {editingContact?.Localidad}</label>
-      <select name="loca_id" value={contact.loca_id} onChange={handleChange} required disabled={!localidades.length}>
+      <select name="loca_id" value={contact.loca_id} onChange={handleChange}  disabled={!localidades.length}>
         <option value="">Seleccione una Localidad</option>
         {localidades.map((l) => (
           <option key={l.Loca_ID} value={l.Loca_ID}>{l.Loca_Name}</option>

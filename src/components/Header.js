@@ -1,17 +1,47 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../api/admin";
+import "../assets/css/btadmin.css";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  const handleMenuSelect = (option) => {
+    setMenuOpen(false);
+    if (option === "admin") {
+      navigate("/admin");
+    } else if (option === "logout") {
+      logout();
+      navigate("/login");
+    }
+  };
+
   return (
     <header className="header_section">
       <div className="header_top">
         <div className="container-fluid">
           <div className="contact_nav">
-            {/* Botón de Admin */}
-            <Link to="/admin" className="admin-button">
-              <i className="fa fa-user-cog" aria-hidden="true"></i>
-              <span> Admin</span>
-            </Link>
+            {isLoggedIn ? (
+              <div className="dropdown">
+                <button onClick={() => setMenuOpen(!menuOpen)} className="admin-button">
+                  <i className="fa fa-user-cog" aria-hidden="true"></i>
+                  <span> Opciones ▼</span>
+                </button>
+                {menuOpen && (
+                  <div className="dropdown-menu">
+                    <button onClick={() => handleMenuSelect("admin")}>🔧 Panel Admin</button>
+                    <button onClick={() => handleMenuSelect("logout")}>🚪 Cerrar Sesión</button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button onClick={() => navigate("/login")} className="admin-button">
+                <i className="fa fa-sign-in-alt" aria-hidden="true"></i>
+                <span> Inicio de sesión</span>
+              </button>
+            )}
 
             <a href="mailto:soporte.botondepanico@gmail.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>
@@ -20,6 +50,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+
       <div className="header_bottom">
         <div className="container-fluid">
           <nav className="navbar navbar-expand-lg custom_nav-container">

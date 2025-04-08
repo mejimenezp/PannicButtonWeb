@@ -43,8 +43,17 @@ export const login = async (phone, email) => {
 // Cerrar sesión
 export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("serv_id");
+  localStorage.removeItem("serv_name");
   localStorage.removeItem("role");
+  localStorage.removeItem("id");
+  localStorage.removeItem("Dpto_ID");
+  localStorage.removeItem("Area_ID");
+  localStorage.removeItem("Ciud_ID");
+  localStorage.removeItem("Vere_ID");
+  localStorage.removeItem("Loca_ID");
 };
+
 
 // ✅ Nueva función para validar el token en el backend
 export const validateToken = async () => {

@@ -1,0 +1,55 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .admin-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  .admin-button:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .dropdown-menu {
+    left: 100%;
+    transform: translateX(-50%);
+    right: auto; 
+  }
+  
+  
+  .dropdown-menu button {
+    background: none;
+    border: none;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .dropdown-menu button:hover {
+    background-color: #f0f0f0;
+  }
+  .contact_nav {
+    position: relative;
+    overflow: visible !important;
+    z-index: 999;
+  }
+  .dropdown-menu {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+    
