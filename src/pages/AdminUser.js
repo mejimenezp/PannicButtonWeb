@@ -16,6 +16,23 @@ const Admin = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [actionUser, setActionUser] = useState(null);
 
+  const [filters, setFilters] = useState({
+    departamento: "",
+    area: "",
+    ciudad: "",
+    vereda: "",
+    localidad: ""
+  });
+  
+  const [filterOptions, setFilterOptions] = useState({
+    departamentos: [],
+    areas: [],
+    ciudades: [],
+    veredas: [],
+    localidades: []
+  });
+    
+
   // Obtener información del usuario actual
   const currentUserRole = localStorage.getItem("role");
   const isSupport = currentUserRole === "support";
@@ -38,11 +55,54 @@ const Admin = () => {
     try {
       const data = isSupport ? await getSupportUsers(currentUserServId) : await getUsers();
       setUsers(data);
+      if (!isSupport) extractFilterOptions(data); 
     } catch (error) {
       console.error("Error al cargar usuarios:", error);
       alert("Error al cargar usuarios");
     }
   };
+
+  const extractFilterOptions = (data) => {
+    const getUnique = (key) =>
+      [...new Set(data.map((u) => u[key]).filter(Boolean))].sort();
+
+    setFilterOptions({
+      departamentos: getUnique("Departamento"),
+      areas: getUnique("Area"),
+      ciudades: getUnique("Ciudad"),
+      veredas: getUnique("Vereda"),
+      localidades: getUnique("Localidad")
+    });
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      departamento: "",
+      area: "",
+      ciudad: "",
+      vereda: "",
+      localidad: ""
+    });
+    loadUsers();
+  };
+
+  const filteredUsers = users.filter((user) => {
+    return (
+      (filters.departamento === "" || user.Departamento === filters.departamento) &&
+      (filters.area === "" || user.Area === filters.area) &&
+      (filters.ciudad === "" || user.Ciudad === filters.ciudad) &&
+      (filters.vereda === "" || user.Vereda === filters.vereda) &&
+      (filters.localidad === "" || user.Localidad === filters.localidad)
+    );
+  });
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -110,6 +170,50 @@ const Admin = () => {
         <button className="btn btn-add" onClick={handleAddNew}>
           ➕ Agregar Usuario
         </button>
+
+        {!isSupport && (
+        <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          <select name="departamento" value={filters.departamento} onChange={handleFilterChange}>
+            <option value="">Todos los Departamentos</option>
+            {filterOptions.departamentos.map((d, i) => (
+              <option key={i} value={d}>{d}</option>
+            ))}
+          </select>
+
+          <select name="area" value={filters.area} onChange={handleFilterChange}>
+            <option value="">Todas las Áreas</option>
+            {filterOptions.areas.map((a, i) => (
+              <option key={i} value={a}>{a}</option>
+            ))}
+          </select>
+
+          <select name="ciudad" value={filters.ciudad} onChange={handleFilterChange}>
+            <option value="">Todas las Ciudades</option>
+            {filterOptions.ciudades.map((c, i) => (
+              <option key={i} value={c}>{c}</option>
+            ))}
+          </select>
+
+          <select name="vereda" value={filters.vereda} onChange={handleFilterChange}>
+            <option value="">Todas las Veredas</option>
+            {filterOptions.veredas.map((v, i) => (
+              <option key={i} value={v}>{v}</option>
+            ))}
+          </select>
+
+          <select name="localidad" value={filters.localidad} onChange={handleFilterChange}>
+            <option value="">Todas las Localidades</option>
+            {filterOptions.localidades.map((l, i) => (
+              <option key={i} value={l}>{l}</option>
+            ))}
+          </select>
+
+          <button onClick={handleClearFilters} className="btn" style={{ backgroundColor: "#f0f0f0", border: "1px solid #ccc", color: "#333" }}>
+            Limpiar Filtros ✖️
+          </button>
+        </div>
+      )}
+
       
 
       {/* Sidebar con formulario */}
@@ -168,8 +272,8 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody>
-            {users.length > 0 ? (
-              users.map((user) => (
+          {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
                 <tr key={user.Usua_ID}>
                   <td title={user.Usua_Name}>{user.Usua_Name}</td>
                   <td>{user.Usua_Phone}</td>

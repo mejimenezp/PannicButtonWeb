@@ -289,3 +289,22 @@ tbody td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.filter-container select,
+.filter-container button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 160px;           /* puedes ajustar este ancho según lo que necesites */
+  flex: 1;                    /* que todos ocupen el mismo ancho disponible */
+  max-width: 200px;           /* evita que sean demasiado anchos */
+}
+
+@media (max-width: 768px) {
+  .filter-container select,
+  .filter-container button {
+    flex: 100%;               /* que usen todo el ancho en pantallas pequeñas */
+    max-width: none;
+  }
+}
+

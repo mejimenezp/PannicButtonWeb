@@ -194,9 +194,10 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
       // Mantener valores existentes si no se modificaron
       dpto_id: user.dpto_id !== "" ? user.dpto_id : editingUser?.Departamento_ID || null,
       area_id: user.area_id !== "" ? user.area_id : editingUser?.Area_ID || null,
-      ciud_id: user.ciud_id !== "" ? user.ciud_id : editingUser?.Ciudad_ID || null,
-      vere_id: user.vere_id !== "" ? user.vere_id : editingUser?.Vereda_ID || null,
-      loca_id: user.loca_id !== "" ? user.loca_id : editingUser?.Localidad_ID || null,
+      ciud_id: ciudades.length === 0 && user.area_id !== editingUser?.Area_ID ? null : (user.ciud_id !== "" ? user.ciud_id : editingUser?.Ciudad_ID || null),
+      vere_id: veredas.length === 0 && user.ciud_id !== editingUser?.Ciudad_ID ? null : (user.vere_id !== "" ? user.vere_id : editingUser?.Vereda_ID || null),
+      loca_id: localidades.length === 0 && user.vere_id !== editingUser?.Vereda_ID ? null : (user.loca_id !== "" ? user.loca_id : editingUser?.Localidad_ID || null),
+
     };
 
     try {
@@ -383,7 +384,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
             <option value="" disabled>No hay localidades disponibles</option>
           )}
         </select>
-      </div>
+      </div>  
 
       <button type="submit">
         {editingUser ? "Actualizar Usuario" : "Crear Usuario"}

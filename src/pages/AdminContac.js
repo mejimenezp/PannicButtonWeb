@@ -11,7 +11,22 @@ const AdminContacts = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [actionContact, setActionContact] = useState(null);
 
-  // Obtener información del usuario actual
+  const [filters, setFilters] = useState({
+    departamento: "",
+    area: "",
+    ciudad: "",
+    vereda: "",
+    localidad: ""
+  });
+
+  const [filterOptions, setFilterOptions] = useState({
+    departamentos: [],
+    areas: [],
+    ciudades: [],
+    veredas: [],
+    localidades: []
+  });
+
   const currentUserRole = localStorage.getItem("role");
   const isSupport = currentUserRole === "support";
   const currentUserServId = parseInt(localStorage.getItem("serv_id") || "0");
@@ -33,11 +48,53 @@ const AdminContacts = () => {
     try {
       const data = isSupport ? await getSupportContacts(currentUserServId) : await getContacts();
       setContacts(data);
+      if (!isSupport) extractFilterOptions(data);
     } catch (error) {
       console.error("Error al cargar contactos:", error);
       alert("Error al cargar contactos");
     }
   };
+
+  const extractFilterOptions = (data) => {
+    const getUnique = (key) =>
+      [...new Set(data.map((c) => c[key]).filter(Boolean))].sort();
+
+    setFilterOptions({
+      departamentos: getUnique("Departamento"),
+      areas: getUnique("Area"),
+      ciudades: getUnique("Ciudad"),
+      veredas: getUnique("Vereda"),
+      localidades: getUnique("Localidad")
+    });
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      departamento: "",
+      area: "",
+      ciudad: "",
+      vereda: "",
+      localidad: ""
+    });
+  };
+
+  const filteredContacts = contacts.filter((contact) => {
+    return (
+      (filters.departamento === "" || contact.Departamento === filters.departamento) &&
+      (filters.area === "" || contact.Area === filters.area) &&
+      (filters.ciudad === "" || contact.Ciudad === filters.ciudad) &&
+      (filters.vereda === "" || contact.Vereda === filters.vereda) &&
+      (filters.localidad === "" || contact.Localidad === filters.localidad)
+    );
+  });
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -48,7 +105,6 @@ const AdminContacts = () => {
     setEditingContact(null);
     setIsSidebarOpen(false);
   };
-  
 
   const handleAddNew = () => {
     setEditingContact(null);
@@ -63,7 +119,6 @@ const AdminContacts = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("¿Estás seguro de eliminar este contacto?")) return;
-    
     try {
       await deleteContact(id);
       loadContacts();
@@ -78,47 +133,83 @@ const AdminContacts = () => {
     <div className="admin-container">
       <h2>
         {isSupport
-          ? "Administración de Contacos (Soporte)"
-          : "Administración de Contacos"}
+          ? "Administración de Contactos (Soporte)"
+          : "Administración de Contactos"}
       </h2>
 
-      {/* Mostrar el nombre del servicio si existe */}
       {isSupport && localStorage.getItem("serv_name") && (
         <p style={{ marginTop: "-10px", marginBottom: "15px", fontWeight: "500", color: "#444" }}>
           El usuario soporte tiene el tipo de servicio: {localStorage.getItem("serv_name")}
         </p>
       )}
 
+      <button className="btn btn-add" onClick={handleAddNew}>
+        ➕ Agregar Contacto
+      </button>
 
-      {/* Mostrar botón solo para admin */}
-      
-        <button className="btn btn-add" onClick={handleAddNew}>
-          ➕ Agregar Contacto
-        </button>
-      
+      {/* Filtros para admin */}
+      {!isSupport && (
+        <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          <select name="departamento" value={filters.departamento} onChange={handleFilterChange}>
+            <option value="">Todos los Departamentos</option>
+            {filterOptions.departamentos.map((d, i) => (
+              <option key={i} value={d}>{d}</option>
+            ))}
+          </select>
+
+          <select name="area" value={filters.area} onChange={handleFilterChange}>
+            <option value="">Todas las Áreas</option>
+            {filterOptions.areas.map((a, i) => (
+              <option key={i} value={a}>{a}</option>
+            ))}
+          </select>
+
+          <select name="ciudad" value={filters.ciudad} onChange={handleFilterChange}>
+            <option value="">Todas las Ciudades</option>
+            {filterOptions.ciudades.map((c, i) => (
+              <option key={i} value={c}>{c}</option>
+            ))}
+          </select>
+
+          <select name="vereda" value={filters.vereda} onChange={handleFilterChange}>
+            <option value="">Todas las Veredas</option>
+            {filterOptions.veredas.map((v, i) => (
+              <option key={i} value={v}>{v}</option>
+            ))}
+          </select>
+
+          <select name="localidad" value={filters.localidad} onChange={handleFilterChange}>
+            <option value="">Todas las Localidades</option>
+            {filterOptions.localidades.map((l, i) => (
+              <option key={i} value={l}>{l}</option>
+            ))}
+          </select>
+
+          <button onClick={handleClearFilters} className="btn" style={{ backgroundColor: "#f0f0f0", border: "1px solid #ccc", color: "#333" }}>
+            Limpiar Filtros ✖️
+          </button>
+        </div>
+      )}
 
       {/* Sidebar con formulario */}
       <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
-      {!isSupport && (
-      <button 
-      onClick={handleCloseForm} 
-      className="btn btn-close" 
-      style={{
-        background: "none",
-        border: "none",
-        display: "flex",
-        alignItems: "center",
-        gap: "5px",
-        color: "#333"
-      }}
-    >
-      Cerrar <span style={{ color: "red" }}>❌</span>
-    </button>
-    )}
+        {!isSupport && (
+          <button
+            onClick={handleCloseForm}
+            className="btn btn-close"
+            style={{
+              background: "none",
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              color: "#333"
+            }}
+          >
+            Cerrar <span style={{ color: "red" }}>❌</span>
+          </button>
+        )}
 
-
-        
-        {/* Seleccionar formulario basado en rol */}
         {isSupport ? (
           <SupportContactForm
             loadContacts={loadContacts}
@@ -155,8 +246,8 @@ const AdminContacts = () => {
             </tr>
           </thead>
           <tbody>
-            {contacts.length > 0 ? (
-              contacts.map((contact) => (
+            {filteredContacts.length > 0 ? (
+              filteredContacts.map((contact) => (
                 <tr key={contact.Cont_ID}>
                   <td>{contact.Cont_Name}</td>
                   <td>{contact.Cont_Phone}</td>
@@ -188,3 +279,4 @@ const AdminContacts = () => {
 };
 
 export default AdminContacts;
+  
