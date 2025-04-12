@@ -35,3 +35,10 @@ export const getUserContacts = async (phone) => {
   const { data } = await api.get(`/contacts/${phone}`);
   return data;
 };
+
+//Enviar Instrucciones
+
+export const sendInstructionsEmail = async (email) => {
+  const { data } = await api.post(`/instrucciones`, { email });
+  return data;
+};

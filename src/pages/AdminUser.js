@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUsers, deleteUser, getUserContacts } from "../api/users";
+import { getUsers, deleteUser, getUserContacts,sendInstructionsEmail } from "../api/users";
 import { getSupportUsers } from "../api/soporte";
 import UserForm from "../components/UserForm";
 import SupportUserForm from "../components/SupportUserForm";
@@ -145,6 +145,19 @@ const Admin = () => {
     }
     setActionUser(null);
   };
+
+  const handleSendInstructions = async (user) => {
+    setSelectedUser(user);
+    try {
+      const response = await sendInstructionsEmail(user.Usua_Email);
+      alert(response.message || "Instrucciones enviadas correctamente a " + user.Usua_Email);
+    } catch (error) {
+      console.error("Error al enviar instrucciones:", error);
+      alert("Hubo un error al enviar las instrucciones.");
+    }
+    setActionUser(null);
+  };
+  
 
   const openActionsModal = (user) => setActionUser(user);
   const closeActionsModal = () => setActionUser(null);
@@ -333,6 +346,7 @@ const Admin = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         onShowContacts={handleShowContacts}
+        onInstructions={handleSendInstructions}
         isSupport={isSupport}
         currentUserServId={currentUserServId}
       />

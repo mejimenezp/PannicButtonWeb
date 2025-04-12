@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/css/modal.css";
 
-const ActionModal = ({ user, onClose, onEdit, onDelete, onShowContacts }) => {
+const ActionModal = ({ user, onClose, onEdit, onDelete, onShowContacts, onInstructions }) => {
   if (!user) return null;
 
   return (
@@ -11,6 +11,7 @@ const ActionModal = ({ user, onClose, onEdit, onDelete, onShowContacts }) => {
         <button onClick={() => onEdit(user)}>✏️ Editar</button>
         <button onClick={() => onDelete(user.Usua_ID)}>🗑 Eliminar</button>
         <button onClick={() => onShowContacts(user)}>📇 Ver contactos</button>
+        <button onClick={() => onInstructions(user)}>📨 Enviar Instrucciones</button>
         <button className="btn-close" onClick={onClose}>
           ❌ Cerrar
         </button>
