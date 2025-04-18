@@ -7,22 +7,30 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+
     try {
       const { token, role } = await login(phone, email);
 
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
-      if (role === "admin") navigate("/admin");
-      else if (role === "support") navigate("/admin");
-      else setError("Acceso no autorizado");
+      if (role === "admin" || role === "support") {
+        navigate("/admin");
+      } else {
+        setError("Acceso no autorizado");
+      }
     } catch (error) {
       console.error("❌ Error de inicio de sesión:", error);
       setError("Credenciales incorrectas");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,7 +52,9 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Iniciando sesión..." : "Iniciar sesión"}
+        </button>
       </form>
       {error && <p className="error">{error}</p>}
     </div>

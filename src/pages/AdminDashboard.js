@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const isSupport = currentUserRole === "support";
 
   const [usuariosSoporte, setUsuariosSoporte] = useState([]);
+  const [loading, setLoading] = useState(true); // ⬅️ estado para mostrar el loader
 
   useEffect(() => {
     const fetchSupportUsers = async () => {
@@ -20,11 +21,15 @@ const AdminDashboard = () => {
         setUsuariosSoporte(data);
       } catch (error) {
         console.error("Error al obtener usuarios de soporte:", error);
+      } finally {
+        setLoading(false); // ⬅️ Finaliza la carga
       }
     };
 
     if (isSupport) {
       fetchSupportUsers();
+    } else {
+      setLoading(false); // ⬅️ Si no es soporte, no hay fetch
     }
   }, [isSupport]);
 
@@ -51,14 +56,33 @@ const AdminDashboard = () => {
         </button>
       </div>
 
-      {/* Mostrar el mapa solo si es soporte */}
-      {isSupport && usuariosSoporte.length > 0 && (
+      {isSupport && (
         <div style={{ marginTop: "2rem" }}>
           <h3>Ubicación de usuarios asignados</h3>
-          <AzureMapaUsuarios
-            usuarios={usuariosSoporte}
-            azureMapsKey="9r3EMmW6nr0CwbibwdNYrhAqBnsUEDdrp1a0EdeXgSyb63b2vio9JQQJ99BDACYeBjFNWioQAAAgAZMP2PbD"
-          />
+          {loading ? (
+            <div
+              style={{
+                height: "400px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                color: "#555",
+              }}
+            >
+              Cargando usuarios...
+            </div>
+          ) : usuariosSoporte.length > 0 ? (
+            <AzureMapaUsuarios
+              usuarios={usuariosSoporte}
+              azureMapsKey="9r3EMmW6nr0CwbibwdNYrhAqBnsUEDdrp1a0EdeXgSyb63b2vio9JQQJ99BDACYeBjFNWioQAAAgAZMP2PbD"
+            />
+          ) : (
+            <p style={{ color: "#888", fontStyle: "italic" }}>
+              No hay usuarios con ubicación disponible.
+            </p>
+          )}
         </div>
       )}
     </div>
