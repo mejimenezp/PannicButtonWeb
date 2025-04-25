@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/admin.css";
 import { getSupportUsers } from "../api/soporte";
-import AzureMapaUsuarios from "../components/MapaUser"; // Asegúrate de usar el nombre correcto
+import MapaUsuarios from "../components/MapaUser";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -57,34 +57,37 @@ const AdminDashboard = () => {
       </div>
 
       {isSupport && (
-        <div style={{ marginTop: "2rem" }}>
-          <h3>Ubicación de usuarios asignados</h3>
-          {loading ? (
-            <div
-              style={{
-                height: "400px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-                color: "#555",
-              }}
-            >
-              Cargando usuarios...
-            </div>
-          ) : usuariosSoporte.length > 0 ? (
-            <AzureMapaUsuarios
-              usuarios={usuariosSoporte}
-              azureMapsKey="9r3EMmW6nr0CwbibwdNYrhAqBnsUEDdrp1a0EdeXgSyb63b2vio9JQQJ99BDACYeBjFNWioQAAAgAZMP2PbD"
-            />
-          ) : (
-            <p style={{ color: "#888", fontStyle: "italic" }}>
-              No hay usuarios con ubicación disponible.
-            </p>
-          )}
-        </div>
-      )}
+  <div style={{ marginTop: "2rem" }}>
+    <h3>Ubicación de usuarios asignados</h3>
+    {loading ? (
+      <div
+        style={{
+          height: "400px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+          color: "#555",
+        }}
+      >
+        Cargando usuarios...
+      </div>
+    ) : usuariosSoporte.length > 0 ? (
+      <div className="mapa-container">
+        <MapaUsuarios
+          usuarios={usuariosSoporte}
+          googleMapsApiKey="AIzaSyDPvDiZmC-o8dNMAAAQZdea9VqgKiYYqhQ"
+        />
+      </div>
+    ) : (
+      <p style={{ color: "#888", fontStyle: "italic" }}>
+        No hay usuarios con ubicación disponible.
+      </p>
+    )}
+  </div>
+)}
+
     </div>
   );
 };

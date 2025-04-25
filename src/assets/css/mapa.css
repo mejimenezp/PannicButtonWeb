@@ -7,3 +7,16 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   margin: auto;
 }
+/* mapa.css */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+}
