@@ -1,50 +1,77 @@
+/* Contenedor principal */
 .contract-container {
-    padding: 2rem;
-    background-color: #f9f9f9;
-    min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f9f9f9;
+}
+
+.containerContrato {
+  max-width: 800px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título principal */
+.contract-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Estilo para el texto */
+.contract-container p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Estilos del botón */
+.boton {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* Estilo cuando el botón es hover */
+.boton:hover {
+  background-color: #0056b3;
+}
+
+/* Instrucción adicional */
+.contract-instruction {
+  font-size: 1rem;
+  color: #333;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.contract-instruction a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contract-instruction a:hover {
+  text-decoration: underline;
+}
+
+/* Modo responsivo */
+@media (max-width: 768px) {
+  .contract-container {
+    padding: 1rem;
   }
-  
-  .containerContrato {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .contract-title {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
-  .container p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    color: #444;
-  }
-  
-  .container h2 {
-    font-size: 1.4rem;
-    color: #555;
-    margin-top: 2rem;
-  }
-  
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  
+}

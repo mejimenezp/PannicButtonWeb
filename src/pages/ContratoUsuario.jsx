@@ -28,7 +28,7 @@ const ContratoUsuario = () => {
           href="/documentos/CONTRATO_USO_LICENCIA.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn"
+          className="boton"
           download
         >
           Descargar Contrato de Uso (PDF)

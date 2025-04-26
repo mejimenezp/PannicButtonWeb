@@ -15,7 +15,6 @@
 /* 🖼️ Ajustes de la Imagen */
 .app-carousel img {
   width: 100%;
-  height: 550px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
