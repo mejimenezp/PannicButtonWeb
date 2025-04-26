@@ -35,7 +35,7 @@ const ContratoUsuario = () => {
         </a>
 
         <p className="contract-instruction">
-  Luego de revisar el contrato y firmarlo, envíalo a nuestro correo <a href="mailto:soporte@fte.com.co">soporte@fte.com.co</a> y luego puedes continuar con el proceso de registro en la aplicación.
+        Una vez revises y firmes el contrato, envíalo a nuestro correo <a href="mailto:soporte@fte.com.co">soporte@fte.com.co</a>. Después de enviarlo, podrás continuar con el proceso de registro para la aplicación.
 </p>
 
       </div>
