@@ -13,6 +13,7 @@ import AdminContacts from "./pages/AdminContac";
 import AdminDashboard from "./pages/AdminDashboard";
 import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoute";
+import ContratoUsuario from "./pages/ContratoUsuario";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -20,7 +21,7 @@ import "./assets/css/style.css";
 import "./assets/css/Contact.css";
 import "./assets/css/Features.css";
 import "./assets/css/Home.css";
-import "./assets/css/about.css";
+
 import "./assets/css/Footer.css";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         {/* Página principal con todas las secciones */}
         <Route path="/" element={<>< About/><Features /><Home /><Contact /></>} />
         <Route path="/privacidad" element={<Privacidad />} />
+        <Route path="/contrato-usuario" element={<ContratoUsuario />} />
         <Route path="/soporte" element={<Soporte />} />
         <Route path="/login" element={<Login />} />
 

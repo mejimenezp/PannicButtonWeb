@@ -47,7 +47,7 @@ const Home = () => {
         {/* Disponibilidad */}
         <p className="available-text">
           Ya disponible en <strong>Android</strong><br />
-        ⏳ Próximamente disponible para <strong>iOS</strong>.
+         y <strong>iOS</strong>.
         </p>
 
       </div>

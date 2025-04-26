@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import aboutImage from "../assets/images/BAnner.png";
 import LogoFundacion from "../assets/images/banner_mobiler.png";
+import "../assets/css/about.css";
 
 const About = () => {
   return (
@@ -29,8 +30,8 @@ const About = () => {
                 Diseñada para brindarte seguridad en situaciones críticas.  
                 Desarrollada por la <strong>Fundación Transparencia Electoral</strong>.
               </p>
-              <Link to="/privacidad" className="btn">
-                Más Información
+              <Link to="/contrato-usuario" className="btn">
+              ¿Quieres ser usuario?
               </Link>
             </div>
           </div>
