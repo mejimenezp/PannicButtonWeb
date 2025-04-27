@@ -308,3 +308,39 @@ tbody td {
   }
 }
 
+/* Contenedor del contador de registros */
+/* Contenedor del contador de registros */
+.contador-registros {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+/* Contador de total de contactos */
+.contador-registros .total {
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+  display: inline-block;
+  border: 1px solid #00796b; /* Borde verde */
+  color: #00796b; /* Color de texto verde */
+}
+
+/* Contador de contactos filtrados */
+.contador-registros .filtrados {
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+  display: inline-block;
+  border: 1px solid #ff9800; /* Borde naranja */
+  color: #ff9800; /* Color de texto naranja */
+}
+
+
+

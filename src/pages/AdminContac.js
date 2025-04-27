@@ -228,6 +228,14 @@ const AdminContacts = () => {
         )}
       </div>
 
+      {/* Contador de registros */}
+      <div className="contador-registros">
+        <p className="total">Total de contactos: {contacts.length}</p>
+        <p className="filtrados">Contactos filtrados: {filteredContacts.length}</p>
+      </div>
+
+
+
       {/* Tabla de contactos */}
       <div className="table-container">
         <table>

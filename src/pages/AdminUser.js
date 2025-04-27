@@ -266,6 +266,11 @@ const Admin = () => {
           />
         )}
       </div>
+       {/* Contador de registros */}
+       <div className="contador-registros">
+        <p className="total">Total de Usuarios: {users.length}</p>
+        <p className="filtrados">Usuarios filtrados: {filteredUsers.length}</p>
+      </div>
 
       {/* Tabla de usuarios */}
       <div className="table-container">
