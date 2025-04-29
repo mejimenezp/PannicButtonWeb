@@ -341,6 +341,37 @@ tbody td {
   border: 1px solid #ff9800; /* Borde naranja */
   color: #ff9800; /* Color de texto naranja */
 }
+/* Estilo para las cabeceras de la tabla */
+th {
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para cuando pasas el ratón por encima de las cabeceras */
+th:hover {
+  background-color: #2117df;
+}
+
+/* Estilo para los indicadores de orden (↑ y ↓) */
+th::after {
+  content: '';
+  margin-left: 5px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Indicador de orden ascendente */
+th.asc::after {
+  content: '↑';
+}
+
+/* Indicador de orden descendente */
+th.desc::after {
+  content: '↓';
+}
 
 
 

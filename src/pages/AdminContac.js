@@ -277,27 +277,27 @@ const AdminContacts = () => {
             {!isSupport && (
               <th
                 onClick={() => handleSort("Departamento")}
-                className={sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "asc" : "desc") : ""}
+                className={sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "asc" : "desc") : "↕"}
               >
-                Departamento {sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+                Departamento {sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "↑" : "↓") : "↕"}
               </th>
             )}
             {!isSupport && (
               <th
                 onClick={() => handleSort("Area")}
-                className={sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "asc" : "desc") : ""}
+                className={sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "asc" : "desc") : "↕"}
               >
-                Área {sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+                Área {sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "↑" : "↓") : "↕"}
               </th>
             )}
             <th onClick={() => handleSort("Ciudad")}>
-              Ciudad {sortConfig.key === "Ciudad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              Ciudad {sortConfig.key === "Ciudad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : "↕"}
             </th>
             <th onClick={() => handleSort("Vereda")}>
-              Vereda {sortConfig.key === "Vereda" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              Vereda {sortConfig.key === "Vereda" ? (sortConfig.direction === "asc" ? "↑" : "↓") : "↕"}
             </th>
             <th onClick={() => handleSort("Localidad")}>
-              Localidad {sortConfig.key === "Localidad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              Localidad {sortConfig.key === "Localidad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : "↕"}
             </th>
             <th>Acciones</th>
           </tr>
