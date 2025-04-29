@@ -15,6 +15,7 @@ const Admin = () => {
   const [userContacts, setUserContacts] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [actionUser, setActionUser] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   const [filters, setFilters] = useState({
     departamento: "",
@@ -31,12 +32,6 @@ const Admin = () => {
     veredas: [],
     localidades: []
   });
-
-  // Log inicial de filtros y opciones
-useEffect(() => {
-  console.log("Estado inicial de filters:", filters);
-  console.log("Estado inicial de filterOptions:", filterOptions);
-}, []);
 
     
 
@@ -109,6 +104,25 @@ useEffect(() => {
       (filters.vereda === "" || user.Vereda === filters.vereda) &&
       (filters.localidad === "" || user.Localidad === filters.localidad)
     );
+  });
+
+  const handleSort = (key) => {
+    setSortConfig((prev) => {
+      if (prev.key === key) {
+        return { key, direction: prev.direction === "asc" ? "desc" : "asc" };
+      } else {
+        return { key, direction: "asc" };
+      }
+    });
+  };
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    const valA = a[sortConfig.key] || "";
+    const valB = b[sortConfig.key] || "";
+  
+    if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
+    if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
+    return 0;
   });
 
   const toggleSidebar = () => {
@@ -296,17 +310,37 @@ useEffect(() => {
               <th>Teléfono</th>
               <th>Email</th>
               <th>Servicio</th>
-              {!isSupport && <th>Departamento</th>}
-              {!isSupport && <th>Área</th>}
-              <th>Ciudad</th>
-              <th>Vereda</th>
-              <th>Localidad</th>
+              {!isSupport && (
+              <th
+                onClick={() => handleSort("Departamento")}
+                className={sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "asc" : "desc") : ""}
+              >
+                Departamento {sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              </th>
+            )}
+            {!isSupport && (
+              <th
+                onClick={() => handleSort("Area")}
+                className={sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "asc" : "desc") : ""}
+              >
+                Área {sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              </th>
+            )}
+            <th onClick={() => handleSort("Ciudad")}>
+              Ciudad {sortConfig.key === "Ciudad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+            </th>
+            <th onClick={() => handleSort("Vereda")}>
+              Vereda {sortConfig.key === "Vereda" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+            </th>
+            <th onClick={() => handleSort("Localidad")}>
+              Localidad {sortConfig.key === "Localidad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+            </th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-          {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
+          {sortedUsers.length > 0 ? (
+              sortedUsers.map((user) => (
                 <tr key={user.Usua_ID}>
                   <td title={user.Usua_Name}>{user.Usua_Name}</td>
                   <td>{user.Usua_Phone}</td>

@@ -10,6 +10,8 @@ const AdminContacts = () => {
   const [editingContact, setEditingContact] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [actionContact, setActionContact] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+
 
   const [filters, setFilters] = useState({
     departamento: "",
@@ -95,6 +97,26 @@ const AdminContacts = () => {
       (filters.localidad === "" || contact.Localidad === filters.localidad)
     );
   });
+
+  const handleSort = (key) => {
+    setSortConfig((prev) => {
+      if (prev.key === key) {
+        return { key, direction: prev.direction === "asc" ? "desc" : "asc" };
+      } else {
+        return { key, direction: "asc" };
+      }
+    });
+  };
+  const sortedContacts = [...filteredContacts].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    const valA = a[sortConfig.key] || "";
+    const valB = b[sortConfig.key] || "";
+  
+    if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
+    if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
+    return 0;
+  });
+    
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -246,23 +268,44 @@ const AdminContacts = () => {
       {/* Tabla de contactos */}
       <div className="table-container">
         <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Teléfono</th>
-              <th>Email</th>
-              <th>Tipo de Contacto</th>
-              {!isSupport && <th>Departamento</th>}
-              {!isSupport && <th>Área</th>}
-              <th>Ciudad</th>
-              <th>Vereda</th>
-              <th>Localidad</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Tipo de Contacto</th>
+            {!isSupport && (
+              <th
+                onClick={() => handleSort("Departamento")}
+                className={sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "asc" : "desc") : ""}
+              >
+                Departamento {sortConfig.key === "Departamento" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              </th>
+            )}
+            {!isSupport && (
+              <th
+                onClick={() => handleSort("Area")}
+                className={sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "asc" : "desc") : ""}
+              >
+                Área {sortConfig.key === "Area" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+              </th>
+            )}
+            <th onClick={() => handleSort("Ciudad")}>
+              Ciudad {sortConfig.key === "Ciudad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+            </th>
+            <th onClick={() => handleSort("Vereda")}>
+              Vereda {sortConfig.key === "Vereda" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+            </th>
+            <th onClick={() => handleSort("Localidad")}>
+              Localidad {sortConfig.key === "Localidad" ? (sortConfig.direction === "asc" ? "↑" : "↓") : ""}
+            </th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
           <tbody>
-            {filteredContacts.length > 0 ? (
-              filteredContacts.map((contact) => (
+          {sortedContacts.length > 0 ? (
+            sortedContacts.map((contact) => (
                 <tr key={contact.Cont_ID}>
                   <td>{contact.Cont_Name}</td>
                   <td>{contact.Cont_Phone}</td>
