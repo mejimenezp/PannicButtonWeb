@@ -62,11 +62,6 @@ const AdminContacts = () => {
     return 0;
   });
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    if (isSidebarOpen) setEditingContact(null);
-  };
-
   const handleCloseForm = () => {
     setEditingContact(null);
     setIsSidebarOpen(false);
