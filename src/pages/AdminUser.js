@@ -31,6 +31,13 @@ const Admin = () => {
     veredas: [],
     localidades: []
   });
+
+  // Log inicial de filtros y opciones
+useEffect(() => {
+  console.log("Estado inicial de filters:", filters);
+  console.log("Estado inicial de filterOptions:", filterOptions);
+}, []);
+
     
 
   // Obtener información del usuario actual
@@ -55,7 +62,7 @@ const Admin = () => {
     try {
       const data = isSupport ? await getSupportUsers(currentUserServId) : await getUsers();
       setUsers(data);
-      if (!isSupport) extractFilterOptions(data); 
+      extractFilterOptions(data); 
     } catch (error) {
       console.error("Error al cargar usuarios:", error);
       alert("Error al cargar usuarios");
@@ -184,48 +191,56 @@ const Admin = () => {
           ➕ Agregar Usuario
         </button>
 
-        {!isSupport && (
+        
         <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
-          <select name="departamento" value={filters.departamento} onChange={handleFilterChange}>
-            <option value="">Todos los Departamentos</option>
-            {filterOptions.departamentos.map((d, i) => (
-              <option key={i} value={d}>{d}</option>
-            ))}
-          </select>
+  
+  {!isSupport && (
+    <>
+      <select name="departamento" value={filters.departamento} onChange={handleFilterChange}>
+        <option value="">Todos los Departamentos</option>
+        {filterOptions.departamentos.map((d, i) => (
+          <option key={i} value={d}>{d}</option>
+        ))}
+      </select>
 
-          <select name="area" value={filters.area} onChange={handleFilterChange}>
-            <option value="">Todas las Áreas</option>
-            {filterOptions.areas.map((a, i) => (
-              <option key={i} value={a}>{a}</option>
-            ))}
-          </select>
+      <select name="area" value={filters.area} onChange={handleFilterChange}>
+        <option value="">Todas las Áreas</option>
+        {filterOptions.areas.map((a, i) => (
+          <option key={i} value={a}>{a}</option>
+        ))}
+      </select>
 
-          <select name="ciudad" value={filters.ciudad} onChange={handleFilterChange}>
-            <option value="">Todas las Ciudades</option>
-            {filterOptions.ciudades.map((c, i) => (
-              <option key={i} value={c}>{c}</option>
-            ))}
-          </select>
+      <select name="ciudad" value={filters.ciudad} onChange={handleFilterChange}>
+        <option value="">Todas las Ciudades</option>
+        {filterOptions.ciudades.map((c, i) => (
+          <option key={i} value={c}>{c}</option>
+        ))}
+      </select>
+    </>
+  )}
 
-          <select name="vereda" value={filters.vereda} onChange={handleFilterChange}>
-            <option value="">Todas las Veredas</option>
-            {filterOptions.veredas.map((v, i) => (
-              <option key={i} value={v}>{v}</option>
-            ))}
-          </select>
+  {/* Vereda y Localidad visibles para todos */}
+  <select name="vereda" value={filters.vereda} onChange={handleFilterChange}>
+    <option value="">Todas las Veredas</option>
+    {filterOptions.veredas.map((v, i) => (
+      <option key={i} value={v}>{v}</option>
+    ))}
+  </select>
 
-          <select name="localidad" value={filters.localidad} onChange={handleFilterChange}>
-            <option value="">Todas las Localidades</option>
-            {filterOptions.localidades.map((l, i) => (
-              <option key={i} value={l}>{l}</option>
-            ))}
-          </select>
+  <select name="localidad" value={filters.localidad} onChange={handleFilterChange}>
+    <option value="">Todas las Localidades</option>
+    {filterOptions.localidades.map((l, i) => (
+      <option key={i} value={l}>{l}</option>
+    ))}
+  </select>
 
-          <button onClick={handleClearFilters} className="btn" style={{ backgroundColor: "#f0f0f0", border: "1px solid #ccc", color: "#333" }}>
-            Limpiar Filtros ✖️
-          </button>
-        </div>
-      )}
+  <button onClick={handleClearFilters} className="btn" style={{ backgroundColor: "#f0f0f0", border: "1px solid #ccc", color: "#333" }}>
+    Limpiar Filtros ✖️
+  </button>
+  
+</div>
+
+      
 
       
 

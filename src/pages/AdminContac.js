@@ -48,7 +48,7 @@ const AdminContacts = () => {
     try {
       const data = isSupport ? await getSupportContacts(currentUserServId) : await getContacts();
       setContacts(data);
-      if (!isSupport) extractFilterOptions(data);
+      extractFilterOptions(data);
     } catch (error) {
       console.error("Error al cargar contactos:", error);
       alert("Error al cargar contactos");
@@ -148,48 +148,55 @@ const AdminContacts = () => {
       </button>
 
       {/* Filtros para admin */}
-      {!isSupport && (
-        <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
-          <select name="departamento" value={filters.departamento} onChange={handleFilterChange}>
-            <option value="">Todos los Departamentos</option>
-            {filterOptions.departamentos.map((d, i) => (
-              <option key={i} value={d}>{d}</option>
-            ))}
-          </select>
+      <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
+  
+  {/* Solo para Admin */}
+  {!isSupport && (
+    <>
+      <select name="departamento" value={filters.departamento} onChange={handleFilterChange}>
+        <option value="">Todos los Departamentos</option>
+        {filterOptions.departamentos.map((d, i) => (
+          <option key={i} value={d}>{d}</option>
+        ))}
+      </select>
 
-          <select name="area" value={filters.area} onChange={handleFilterChange}>
-            <option value="">Todas las Áreas</option>
-            {filterOptions.areas.map((a, i) => (
-              <option key={i} value={a}>{a}</option>
-            ))}
-          </select>
+      <select name="area" value={filters.area} onChange={handleFilterChange}>
+        <option value="">Todas las Áreas</option>
+        {filterOptions.areas.map((a, i) => (
+          <option key={i} value={a}>{a}</option>
+        ))}
+      </select>
+      
+      <select name="ciudad" value={filters.ciudad} onChange={handleFilterChange}>
+        <option value="">Todas las Ciudades</option>
+        {filterOptions.ciudades.map((c, i) => (
+          <option key={i} value={c}>{c}</option>
+        ))}
+      </select>
+    </>
+  )}
 
-          <select name="ciudad" value={filters.ciudad} onChange={handleFilterChange}>
-            <option value="">Todas las Ciudades</option>
-            {filterOptions.ciudades.map((c, i) => (
-              <option key={i} value={c}>{c}</option>
-            ))}
-          </select>
+  {/* Para Admin y Soporte */}
+  <select name="vereda" value={filters.vereda} onChange={handleFilterChange}>
+    <option value="">Todas las Veredas</option>
+    {filterOptions.veredas.map((v, i) => (
+      <option key={i} value={v}>{v}</option>
+    ))}
+  </select>
 
-          <select name="vereda" value={filters.vereda} onChange={handleFilterChange}>
-            <option value="">Todas las Veredas</option>
-            {filterOptions.veredas.map((v, i) => (
-              <option key={i} value={v}>{v}</option>
-            ))}
-          </select>
+  <select name="localidad" value={filters.localidad} onChange={handleFilterChange}>
+    <option value="">Todas las Localidades</option>
+    {filterOptions.localidades.map((l, i) => (
+      <option key={i} value={l}>{l}</option>
+    ))}
+  </select>
 
-          <select name="localidad" value={filters.localidad} onChange={handleFilterChange}>
-            <option value="">Todas las Localidades</option>
-            {filterOptions.localidades.map((l, i) => (
-              <option key={i} value={l}>{l}</option>
-            ))}
-          </select>
+  <button onClick={handleClearFilters} className="btn" style={{ backgroundColor: "#f0f0f0", border: "1px solid #ccc", color: "#333" }}>
+    Limpiar Filtros ✖️
+  </button>
 
-          <button onClick={handleClearFilters} className="btn" style={{ backgroundColor: "#f0f0f0", border: "1px solid #ccc", color: "#333" }}>
-            Limpiar Filtros ✖️
-          </button>
-        </div>
-      )}
+</div>
+
 
       {/* Sidebar con formulario */}
       <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
