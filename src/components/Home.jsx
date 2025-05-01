@@ -23,13 +23,12 @@ const Home = () => {
       <div className="container">
         {/* Título y Logo */}
         <div className="title-container">
-          <h1 className="title">Botón de Pánico</h1>
+          <h1 className="title"></h1>
          
         </div>
 
         {/* Descripción */}
-        <p className="app-description">
-          Una aplicación diseñada para brindarte ayuda en situaciones de emergencia.
+        <p className="app-description"> 
         </p>
 
         {/* Carrusel de imágenes */}
@@ -46,8 +45,7 @@ const Home = () => {
 
         {/* Disponibilidad */}
         <p className="available-text">
-          Ya disponible en <strong>Android</strong><br />
-         y <strong>iOS</strong>.
+         
         </p>
 
       </div>

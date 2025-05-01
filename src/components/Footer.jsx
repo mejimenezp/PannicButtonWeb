@@ -12,7 +12,7 @@ const Footer = () => {
 
         <div className="mt-2">
           <p>Contacto: soporte@fte.com.co</p>
-          <p>Dirección:Carrera 18 # 15-25 socorro Santander, Colomnia</p>
+          <p>Dirección:Carrera 18 # 15-25 Socorro Santander, Colombia</p>
         </div>
        
       </div>

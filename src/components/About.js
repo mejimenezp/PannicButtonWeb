@@ -26,12 +26,10 @@ const About = () => {
               </a>
               <h2>¿Qué es el Botón de Pánico?</h2>
               <p>
-                Nuestra aplicación te permite enviar alertas de emergencia con tu ubicación en tiempo real a tus contactos de confianza.  
-                Diseñada para brindarte seguridad en situaciones críticas.  
-                Desarrollada por la <strong>Fundación Transparencia Electoral</strong>.
+              Nuestra aplicación te permite enviar alertas de emergencia desde tu celular Androi y Iphone con sólo presionar un botón puedes enviar tu ubicación en tiempo real a tus contactos de confianza para hacerles saber que te encuentras en una situacion de emergencia. Diseñada para brindarte seguridad en situaciones críticas. Desarrollada por <strong>la Fundación Transparencia Electoral</strong>.
               </p>
               <Link to="/contrato-usuario" className="btn">
-              ¿Quieres ser usuario?
+              ¿Mas informacion?
               </Link>
             </div>
           </div>

@@ -5,7 +5,7 @@ const ContratoUsuario = () => {
   return (
     <main className="contract-container">
       <div className="containerContrato">
-        <h1 className="contract-title">Solicitud de Acceso como Usuario</h1>
+        <h1 className="contract-title">Como acceder al servicio?</h1>
 
         <p>
           Nuestra aplicación móvil de Botón de Pánico está diseñada para brindar asistencia inmediata en situaciones de emergencia. Al presionar el botón, se envía una alerta con tu ubicación a tus contactos de confianza o al personal autorizado.
@@ -15,7 +15,7 @@ const ContratoUsuario = () => {
           Este sistema está pensado para mejorar la seguridad de los usuarios, permitiéndoles pedir ayuda rápida en momentos críticos como robos, accidentes o amenazas.
         </p>
 
-        <h2>¿Por qué necesitas aceptar el contrato?</h2>
+
         <p>
           Antes de usar la aplicación, es necesario que leas y aceptes los términos legales que regulan su uso. Este contrato define tus derechos, responsabilidades y cómo se maneja tu información dentro de la plataforma.
         </p>
@@ -31,11 +31,11 @@ const ContratoUsuario = () => {
           className="boton"
           download
         >
-          Descargar Contrato de Uso (PDF)
+          Descargar Contrato de Uso
         </a>
 
         <p className="contract-instruction">
-        Una vez revises y firmes el contrato, envíalo a nuestro correo <a href="mailto:soporte@fte.com.co">soporte@fte.com.co</a>. Después de enviarlo, podrás continuar con el proceso de registro para la aplicación.
+        Una vez revises y firmes el contrato, envíalo a nuestro correo <a href="mailto:soporte@fte.com.co">soporte@fte.com.co</a>. Después de enviarlo, recibirás las instrucciones para descargar e instalar  al Botón de Pánico en tu teléfono móvil.
 </p>
 
       </div>

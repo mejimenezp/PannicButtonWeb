@@ -30,7 +30,7 @@ function App() {
       <Header />
       <Routes>
         {/* Página principal con todas las secciones */}
-        <Route path="/" element={<>< About/><Features /><Home /><Contact /></>} />
+        <Route path="/" element={<>< About/><Features /><Contact /></>} />
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/contrato-usuario" element={<ContratoUsuario />} />
         <Route path="/soporte" element={<Soporte />} />
