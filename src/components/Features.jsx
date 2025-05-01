@@ -8,7 +8,7 @@ const Features = () => {
         <div className="features-grid">
           <div className="feature-item">
           <h3>🎯 Solo presionando un botón</h3>
-            <p>Enviarás tu ubicación en tiempo real únicamente  a tus contactos asignados, para notificarles de una situación de emergencia.</p>
+            <p>Enviarás tu ubicación en tiempo real únicamente a tus contactos asignados para notificarles de una situación de emergencia.</p>
           </div>
           <div className="feature-item">
             <h3>📩 Notificación instantánea</h3>
