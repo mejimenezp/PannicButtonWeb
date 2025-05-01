@@ -4,7 +4,7 @@ import { login } from "../api/admin";
 import "../assets/css/login.css";
 
 const Login = () => {
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+57");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

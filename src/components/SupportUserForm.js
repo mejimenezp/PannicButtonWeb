@@ -31,7 +31,7 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
 
   // Estado inicial del formulario
   const [user, setUser] = useState({
-    phone: "",
+    phone: "+57",
     serv_id: userData.serv_id.toString(),
     dpto_id: userData.dpto_id || "",
     area_id: userData.area_id || "",

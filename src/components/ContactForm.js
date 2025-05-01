@@ -39,7 +39,7 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
     } else {
       setContact({
         name: "",
-        phone: "",
+        phone: "+57",
         email: "",
         tyco_id: "",
         dpto_id: "",

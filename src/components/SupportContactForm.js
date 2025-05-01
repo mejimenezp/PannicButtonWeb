@@ -27,7 +27,7 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
   const isFieldEditable = (field) => editableFields.includes(field);
 
   const [contact, setContact] = useState({
-    phone: "",
+    phone: "+57",
     tyco_id: "",
     dpto_id: userData.dpto_id || "",
     area_id: userData.area_id || "",

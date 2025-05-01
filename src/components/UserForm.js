@@ -41,7 +41,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
       
     } else {
       setUser({
-        phone: "",
+        phone: "+57",
         serv_id: "",
         dpto_id: "",
         area_id: "",
