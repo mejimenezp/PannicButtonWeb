@@ -7,8 +7,8 @@ const Features = () => {
         <h2>Funciones Principales</h2>
         <div className="features-grid">
           <div className="feature-item">
-            <h3>📍 Ubicación en tiempo real</h3>
-            <p>Envía tu ubicación exacta a tus contatos de confianza solamente cuando oprimes el Botón de Pánico.</p>
+          <h3>🎯 Solo presionando un botón</h3>
+            <p>Enviarás tu ubicación en tiempo real únicamente  a tus contactos asignados, para notificarles de una situación de emergencia.</p>
           </div>
           <div className="feature-item">
             <h3>📩 Notificación instantánea</h3>
