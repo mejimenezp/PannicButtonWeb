@@ -11,7 +11,8 @@ const Footer = () => {
 
 
         <div className="mt-2">
-          <p>Contacto: soporte@fte.com.co</p>
+          <p>Telefono: 3185788810</p>
+          <p>Contacto: maurviam@yahoo.com</p>
           <p>Dirección:Carrera 18 # 15-25 Socorro Santander, Colombia</p>
         </div>
        
