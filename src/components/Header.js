@@ -42,7 +42,11 @@ const Header = () => {
                 <span> Inicio de sesión</span>
               </button>
             )}
-
+            {/* Teléfono */}
+            <a href="tel:+573185788810">
+              <i className="fa fa-phone" aria-hidden="true"></i>
+              <span>Tel: +57 3185788810</span>
+            </a>
             <a href="mailto:maurviam@yahoo.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>
               <span>Email: maurviam@yahoo.com</span>
