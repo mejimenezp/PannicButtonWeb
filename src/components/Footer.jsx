@@ -11,9 +11,9 @@ const Footer = () => {
 
 
         <div className="mt-2">
-          <p>Telefono: 3185788810</p>
+          <p>Telefono: 3028269521</p>
           <p>Contacto: maurviam@yahoo.com</p>
-          <p>Dirección:Carrera 18 # 15-25 Socorro Santander, Colombia</p>
+          <p>Dirección:Calle 18 # 15-25 Socorro Santander, Colombia</p>
         </div>
        
       </div>

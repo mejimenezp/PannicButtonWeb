@@ -45,7 +45,7 @@ const Header = () => {
             {/* Teléfono */}
             <a href="tel:+573185788810">
               <i className="fa fa-phone" aria-hidden="true"></i>
-              <span>Tel: +57 3185788810</span>
+              <span>Tel: +57 3028269521</span>
             </a>
             <a href="mailto:maurviam@yahoo.com">
               <i className="fa fa-envelope" aria-hidden="true"></i>

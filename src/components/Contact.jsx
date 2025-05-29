@@ -15,7 +15,7 @@ function Contact() {
         <p>Si necesitas ayuda o tienes preguntas, contáctanos.</p>
 
         <div className="contact-info">
-          <p><i className="fa fa-phone" aria-hidden="true"></i> Tel: +57 3185788810</p>
+          <p><i className="fa fa-phone" aria-hidden="true"></i> Tel: +57 3028269521</p>
           <p><i className="fa fa-envelope" aria-hidden="true"></i> Email: <a href="mailto:maurviam@yahoo.com">maurviam@yahoo.com</a></p>
         </div>
 
