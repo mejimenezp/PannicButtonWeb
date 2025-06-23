@@ -304,12 +304,13 @@ const Admin = () => {
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <h3>Contactos de {selectedUser?.Usua_Name}</h3>
+            <p><strong>Total:</strong> {userContacts.length} contacto{userContacts.length !== 1 ? 's' : ''}</p>
           {userContacts.length > 0 ? (
             <ul className="contacts-list">
               {userContacts.map((contact, index) => (
                 <li key={index}>
-  📞 {contact.Usua_Name} - {contact.Usua_Phone} - {contact.Usua_Email} | 🏷️ <strong>{contact.Grupo}</strong>
-</li>
+              📞 {contact.Usua_Name} - {contact.Usua_Phone} - {contact.Usua_Email} | 🏷️ <strong>{contact.Grupo}</strong>
+              </li>
 
               ))}
             </ul>
