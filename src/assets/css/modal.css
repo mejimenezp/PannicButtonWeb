@@ -67,3 +67,10 @@
     opacity: 1;
   }
 }
+.contacts-list {
+  max-height: 300px;  /* puedes ajustar según el tamaño que prefieras */
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-top: 10px;
+  list-style-type: none;
+}
