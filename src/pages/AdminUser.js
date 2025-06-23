@@ -308,10 +308,9 @@ const Admin = () => {
             <ul className="contacts-list">
               {userContacts.map((contact, index) => (
                 <li key={index}>
-                  📞 {contact.Cont_Name} - {contact.Cont_Phone} - {contact.Cont_Email}
-                  <br />
-                  🏷️ <strong>{contact.Grupo}</strong>
-                </li>
+  📞 {contact.Usua_Name} - {contact.Usua_Phone} - {contact.Usua_Email} | 🏷️ <strong>{contact.Grupo}</strong>
+</li>
+
               ))}
             </ul>
           ) : (
