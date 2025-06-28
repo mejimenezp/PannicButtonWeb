@@ -76,11 +76,11 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
           setContact({
             phone: editingContact.Cont_Phone || "",
             tyco_id: editingContact.TyCo_ID || "",
-            dpto_id: editingContact.Dpto_ID || userData.dpto_id || "",
-            area_id: editingContact.Area_ID || userData.area_id || "",
-            ciud_id: editingContact.Ciudad_ID || userData.ciud_id || "",
-            vere_id: editingContact.Vereda_ID || userData.vere_id || "",
-            loca_id: editingContact.Localidad_ID || userData.loca_id || "",
+            dpto_id: editingContact.Dpto_ID ?? userData.dpto_id,
+            area_id: editingContact.Area_ID ?? userData.area_id,
+            ciud_id: editingContact.Ciud_ID ?? userData.ciud_id ,
+            vere_id: editingContact.Vere_ID ?? userData.vere_id ,
+            loca_id: editingContact.Loca_ID ??userData.loca_id ,
             name: editingContact.Cont_Name || "",
             email: editingContact.Cont_Email || "",
           });
@@ -202,7 +202,8 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
  // Función para renderizar campos de ubicación
 const renderLocationField = (field, label) => {
     const fieldName = `${field}_id`;
-    const currentValue = editingContact?.[field] || "No especificado";
+    const nameMap = { dpto:"Departamento", area:"Area", ciud:"Ciudad", vere:"Vereda", loca:"Localidad" };
+    const currentValue = editingContact ? editingContact[nameMap[field]] ?? "No especificado" : "No especificado";
   
     return (
       <div className="form-group">

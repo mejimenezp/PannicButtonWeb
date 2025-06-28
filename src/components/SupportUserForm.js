@@ -80,17 +80,18 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
 
         // 3. Si estamos editando, cargar datos del usuario
         if (editingUser) {
-          setUser({
-            phone: editingUser.Usua_Phone || "",
-            serv_id: editingUser.Servicio_ID || userData.serv_id.toString(),
-            dpto_id: editingUser.Dpto_ID || userData.dpto_id || "",
-            area_id: editingUser.Area_ID || userData.area_id || "",
-            ciud_id: editingUser.Ciudad_ID || userData.ciud_id || "",
-            vere_id: editingUser.Vereda_ID || userData.vere_id || "",
-            loca_id: editingUser.Localidad_ID || userData.loca_id || "",
-            nombre: editingUser.Usua_Name || "",
-            mail: editingUser.Usua_Email || "",
+         setUser({
+            phone: editingUser.Usua_Phone ?? "",
+            serv_id: editingUser.Usua_Serv_ID ?? userData.serv_id,
+            dpto_id: editingUser.Dpto_ID ?? userData.dpto_id,
+            area_id: editingUser.Area_ID ?? userData.area_id,
+            ciud_id: editingUser.Ciud_ID ?? userData.ciud_id,
+            vere_id: editingUser.Vere_ID ?? userData.vere_id,
+            loca_id: editingUser.Loca_ID ?? userData.loca_id,
+            nombre: editingUser.Usua_Name ?? "",
+            mail: editingUser.Usua_Email ?? "",
           });
+
 
           // Cargar jerarquía completa para el usuario editado
           if (isFieldEditable('area_id') && editingUser.Dpto_ID) {
@@ -223,7 +224,8 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
   // Render condicional de campos
   const renderLocationField = (field, label) => {
     const fieldName = `${field}_id`;
-    const currentValue = editingUser?.[field] || "No especificado";
+    const nameMap = { dpto:"Departamento", area:"Area", ciud:"Ciudad", vere:"Vereda", loca:"Localidad" };
+    const currentValue = editingUser ? editingUser[nameMap[field]] ?? "No especificado" : "No especificado";
     
     return (
       <div className="form-group">
@@ -338,4 +340,4 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
   );
 };
 
-export default SupportUserForm;
+export default SupportUserForm; 
