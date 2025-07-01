@@ -32,7 +32,7 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
   // Estado inicial del formulario
   const [user, setUser] = useState({
     phone: "+57",
-    serv_id: userData.serv_id.toString(),
+    serv_id: "",
     dpto_id: userData.dpto_id || "",
     area_id: userData.area_id || "",
     ciud_id: userData.ciud_id || "",
@@ -78,16 +78,22 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
           setVeredas(veredasData);
         }
 
+        if (isFieldEditable('loca_id') && userData.loca_id) {
+          const localidadesData = await getLocalidades(userData.loca_id)
+          setLocalidades(localidadesData);
+        }
+        
+
         // 3. Si estamos editando, cargar datos del usuario
         if (editingUser) {
          setUser({
             phone: editingUser.Usua_Phone ?? "",
             serv_id: editingUser.Usua_Serv_ID ?? userData.serv_id,
             dpto_id: editingUser.Dpto_ID ?? userData.dpto_id,
-            area_id: editingUser.Area_ID ?? userData.area_id,
-            ciud_id: editingUser.Ciud_ID ?? userData.ciud_id,
-            vere_id: editingUser.Vere_ID ?? userData.vere_id,
-            loca_id: editingUser.Loca_ID ?? userData.loca_id,
+            area_id: editingUser.Area_ID === null ? "null" : editingUser.Area_ID ?? "",
+            ciud_id: editingUser.Ciud_ID  === null ? "null" : editingUser.Ciud_ID  ?? "",
+            vere_id: editingUser.Vere_ID  === null ? "null" : editingUser.Vere_ID  ?? "",
+            loca_id: editingUser.Loca_ID  === null ? "null" : editingUser.Loca_ID  ?? "",
             nombre: editingUser.Usua_Name ?? "",
             mail: editingUser.Usua_Email ?? "",
           });
@@ -106,8 +112,8 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
             const veredasData = await getVeredas(editingUser.Ciudad_ID);
             setVeredas(veredasData);
           }
-          if (isFieldEditable('loca_id') && editingUser.Vereda_ID) {
-            const localidadesData = await getLocalidades(editingUser.Vereda_ID);
+          if (isFieldEditable('loca_id') && editingUser.Vere_ID) {
+            const localidadesData = await getLocalidades(editingUser.Vere_ID);
             setLocalidades(localidadesData);
           }
         }
@@ -195,9 +201,15 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const normalizeNulls = (value) => value === "null" ? null : value;
       // Preparar datos para enviar (mantener valores no editables)
       const userToSend = {
         ...user,
+        dpto_id: normalizeNulls(user.dpto_id),
+        area_id: normalizeNulls(user.area_id),
+        ciud_id: normalizeNulls(user.ciud_id),
+        vere_id: normalizeNulls(user.vere_id),
+        loca_id: normalizeNulls(user.loca_id),
         ...(!isFieldEditable('dpto_id') && { dpto_id: userData.dpto_id }),
         ...(!isFieldEditable('area_id') && { area_id: userData.area_id }),
         ...(!isFieldEditable('ciud_id') && { ciud_id: userData.ciud_id }),
@@ -226,7 +238,7 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
     const fieldName = `${field}_id`;
     const nameMap = { dpto:"Departamento", area:"Area", ciud:"Ciudad", vere:"Vereda", loca:"Localidad" };
     const currentValue = editingUser ? editingUser[nameMap[field]] ?? "No especificado" : "No especificado";
-    
+
     return (
       <div className="form-group">
         <label>{label} actual: {currentValue}</label>
@@ -242,6 +254,8 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
           
         >
           <option value="">Seleccione {label.toLowerCase()}</option>
+          <option value="null">Sin {label.toLowerCase()}</option>
+
           {field === 'dpto' && departamentos.map(d => (
             <option key={d.Dpto_ID} value={d.Dpto_ID}>{d.Dpto_Name}</option>
           ))}

@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const isSupport = currentUserRole === "support";
 
   const [usuariosSoporte, setUsuariosSoporte] = useState([]);
-  const [loading, setLoading] = useState(true); // ⬅️ estado para mostrar el loader
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchSupportUsers = async () => {
@@ -22,14 +22,14 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error("Error al obtener usuarios de soporte:", error);
       } finally {
-        setLoading(false); // ⬅️ Finaliza la carga
+        setLoading(false); 
       }
     };
 
     if (isSupport) {
       fetchSupportUsers();
     } else {
-      setLoading(false); // ⬅️ Si no es soporte, no hay fetch
+      setLoading(false); 
     }
   }, [isSupport]);
 

@@ -72,15 +72,20 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
           setVeredas(veredas);
         }
 
+        if (isFieldEditable('loca_id') && userData.loca_id) {
+          const localidades = await getLocalidades(userData.loca_id);
+          setLocalidades(localidades);
+        }
+
         if (editingContact) {
           setContact({
             phone: editingContact.Cont_Phone || "",
             tyco_id: editingContact.TyCo_ID || "",
-            dpto_id: editingContact.Dpto_ID ?? userData.dpto_id,
-            area_id: editingContact.Area_ID ?? userData.area_id,
-            ciud_id: editingContact.Ciud_ID ?? userData.ciud_id ,
-            vere_id: editingContact.Vere_ID ?? userData.vere_id ,
-            loca_id: editingContact.Loca_ID ??userData.loca_id ,
+            dpto_id: editingContact.Dpto_ID ?? "",
+            area_id: editingContact.Area_ID ?? "",
+            ciud_id: editingContact.Ciud_ID === null ? "null" : editingContact.Ciud_ID ?? "",
+            vere_id: editingContact.Vere_ID === null ? "null" : editingContact.Vere_ID ?? "",
+            loca_id: editingContact.Loca_ID === null ? "null" : editingContact.Loca_ID ?? "",
             name: editingContact.Cont_Name || "",
             email: editingContact.Cont_Email || "",
           });
@@ -97,8 +102,8 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
             const veredas = await getVeredas(editingContact.Ciudad_ID);
             setVeredas(veredas);
           }
-          if (isFieldEditable('loca_id') && editingContact.Vereda_ID) {
-            const localidades = await getLocalidades(editingContact.Vereda_ID);
+          if (isFieldEditable('loca_id') && editingContact.Vere_ID) {
+            const localidades = await getLocalidades(editingContact.Vere_ID);
             setLocalidades(localidades);
           }
         }
@@ -174,8 +179,14 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const normalizeNulls = (value) => value === "null" ? null : value;
       const contactToSend = {
         ...contact,
+        dpto_id: normalizeNulls(contact.dpto_id),
+        area_id: normalizeNulls(contact.area_id),
+        ciud_id: normalizeNulls(contact.ciud_id),
+        vere_id: normalizeNulls(contact.vere_id),
+        loca_id: normalizeNulls(contact.loca_id),
         ...(!isFieldEditable('dpto_id') && { dpto_id: userData.dpto_id }),
         ...(!isFieldEditable('area_id') && { area_id: userData.area_id }),
         ...(!isFieldEditable('ciud_id') && { ciud_id: userData.ciud_id }),
@@ -221,6 +232,7 @@ const renderLocationField = (field, label) => {
           }
         >
           <option value="">Seleccione {label.toLowerCase()}</option>
+          <option value="null">Sin {label.toLowerCase()}</option>
   
           {field === 'dpto' && departamentos.map(d => (
             <option key={d.Dpto_ID} value={d.Dpto_ID}>{d.Dpto_Name}</option>
