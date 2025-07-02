@@ -108,8 +108,8 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
             const ciudadesData = await getCiudades(editingUser.Area_ID);
             setCiudades(ciudadesData);
           }
-          if (isFieldEditable('vere_id') && editingUser.Ciudad_ID) {
-            const veredasData = await getVeredas(editingUser.Ciudad_ID);
+          if (isFieldEditable('vere_id') && editingUser.Ciud_ID) {
+            const veredasData = await getVeredas(editingUser.Ciud_ID);
             setVeredas(veredasData);
           }
           if (isFieldEditable('loca_id') && editingUser.Vere_ID) {

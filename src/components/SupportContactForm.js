@@ -98,8 +98,8 @@ const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, c
             const ciudades = await getCiudades(editingContact.Area_ID);
             setCiudades(ciudades);
           }
-          if (isFieldEditable('vere_id') && editingContact.Ciudad_ID) {
-            const veredas = await getVeredas(editingContact.Ciudad_ID);
+          if (isFieldEditable('vere_id') && editingContact.Ciud_ID) {
+            const veredas = await getVeredas(editingContact.Ciud_ID);
             setVeredas(veredas);
           }
           if (isFieldEditable('loca_id') && editingContact.Vere_ID) {
