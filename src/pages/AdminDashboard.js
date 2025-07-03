@@ -54,7 +54,14 @@ const AdminDashboard = () => {
         >
           📞 Gestionar Contactos
         </button>
+        <button
+          className="btn btn-geo"
+          onClick={() => navigate("/adminGeo")}
+        >
+          🌐 Gestionar Localizaciones
+        </button>
       </div>
+      
 
       {isSupport && (
   <div style={{ marginTop: "2rem" }}>

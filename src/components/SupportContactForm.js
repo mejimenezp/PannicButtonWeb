@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createContact, updateContact, getRoles } from "../api/contacts";
 import { getDepartamentos, getAreas, getCiudades, getVeredas, getLocalidades } from "../api/locations";
+import "../assets/css/forms.css";
 
 const SupportContactForm = ({ loadContacts, editingContact, setEditingContact, closeForm }) => {
   const userData = {

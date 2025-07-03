@@ -10,7 +10,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 5px;
   font-family: 'Arial', sans-serif;
   z-index: 1000;
 }
@@ -19,23 +19,25 @@
   right: 0;
 }
 
-input, select {
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size:12px;
-  transition: 0.3s ease-in-out;
+input,
+select {
+  width: 95%;
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   background: #fff;
-  width: 100%;
   box-sizing: border-box;
+  transition: border 0.2s, box-shadow 0.2s;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: #4a4e69;
-  box-shadow: 0 0 8px rgba(74, 78, 105, 0.7);
+  box-shadow: 0 0 5px rgba(74, 78, 105, 0.4);
   outline: none;
-  transform: scale(1.02);
 }
+
 
 button {
   padding: 8px 10px;
@@ -97,4 +99,74 @@ select:disabled {
     font-size: 13px;
     padding: 6px;
   }
+}
+.sidebar-container form input,
+.sidebar-container form select {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease-in-out;
+}
+
+.sidebar-container form input:focus,
+.sidebar-container form select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
+  transform: scale(1.01);
+}
+
+/* Etiquetas con más claridad */
+.sidebar-container form label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: #333;
+}
+
+/* Espaciado consistente entre campos */
+.sidebar-container form > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  padding: 0 25px;
+}
+.form-actions {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(to top, #f9f9f9, transparent);
+  padding: 10px 25px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  z-index: 1;
+}
+
+
+.form-actions button {
+  flex: 1;
+  padding: 8px;               
+  font-size: 14px;            
+  font-weight: 600;           
+  border-radius: 6px;         
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+
+.form-actions button[type="button"] {
+  background-color: #6c757d; 
+  color: #fff;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #28a745; 
+  color: #fff;
+}
+
+.form-actions button:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
 }

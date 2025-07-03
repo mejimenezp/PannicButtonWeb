@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createUser, updateUser, getServices } from "../api/users";
 import { getDepartamentos, getAreas, getCiudades, getVeredas, getLocalidades } from "../api/locations";
+import "../assets/css/forms.css";
 
 const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) => {
   // Datos del usuario de soporte (ejemplo serv_id=5)
