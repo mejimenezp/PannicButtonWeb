@@ -6,10 +6,11 @@ import {
 import CreateModal from "../components/CreateLocationModal";
 import "../assets/css/adminGeo.css";
 
-const currentUserRole = localStorage.getItem("role");
-const isSupport = currentUserRole === "support";
+
 
 const AdminGeo = () => {
+const currentUserRole = localStorage.getItem("role");
+const isSupport = currentUserRole === "support";
     
   /* ─── datos del soporte ─────────────────────────────── */
   const serv_id = Number(localStorage.getItem("serv_id"));   // 1-5
