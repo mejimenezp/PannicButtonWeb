@@ -1,0 +1,161 @@
+/* ───────── Contenedor principal ───────── */
+.mass-email {
+  max-width: 640px;
+  margin: auto;
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ───────── Título ───────── */
+.mass-email h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* ───────── Mensajes de estado ───────── */
+.mass-email .alert {
+  margin-bottom: 1rem;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid;
+}
+
+.mass-email .alert.ok {
+  background: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.mass-email .alert.err {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* ───────── Filtros ───────── */
+.mass-email .filters {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.mass-email .filters select {
+  flex: 1 1 45%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-width: 120px;
+}
+
+.mass-email .filters button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.mass-email .filters button:hover {
+  background: #0069d9;
+}
+
+/* ───────── Lista de usuarios ───────── */
+.mass-email .recipient-box {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  background: #fafafa;
+}
+
+.mass-email .recipient-box label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+.mass-email .recipient-box .select-all {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.mass-email .recipient-box .empty {
+  color: #666;
+  font-style: italic;
+}
+
+/* ───────── Campos de entrada ───────── */
+.mass-email input[type="text"],
+.mass-email textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+/* ───────── Botón enviar ───────── */
+.mass-email .send-btn {
+  background: #28a745;
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.mass-email .send-btn:hover {
+  background: #218838;
+}
+/* ───── LISTA DE DESTINATARIOS ───────────────────────── */
+.recipient-box {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 6px;
+  border-radius: 6px;
+  margin-top: 10px;
+  background: #f9f9f9;
+}
+
+/* línea normal y línea “seleccionar todos” comparten clase */
+.recipient-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 4px;
+  font-size: .95rem;
+  cursor: pointer;
+}
+
+/* checkbox: sin margen extra */
+.recipient-item input { margin: 0; }
+
+/* texto: ocupa todo lo que queda y corta con “…” si es muy largo */
+.recipient-name {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* mensaje “Sin usuarios.” */
+.empty { color:#666; font-style:italic; margin:4px 0; }
+
+.mass-email .recipient-item input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+}
