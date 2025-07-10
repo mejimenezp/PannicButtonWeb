@@ -68,6 +68,14 @@ const AdminDashboard = () => {
             📧 Envío de Correo
           </button>
         )}
+        {!isSupport && (
+          <button
+            className="btn btn-mail"
+            onClick={() => navigate("/EnvioSms")}
+          >
+            📧 Envío de SMS
+          </button>
+        )}
 
       </div>
       

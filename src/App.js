@@ -16,6 +16,8 @@ import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoute";
 import ContratoUsuario from "./pages/ContratoUsuario";
 import MassEmail from "./pages/MassEmail";
+import MassSMS from "./pages/MassSMS";
+
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -46,6 +48,7 @@ function App() {
         <Route path="/adminContacts" element={<PrivateRoute role="4"><AdminContacts /></PrivateRoute>} />
         <Route path="/adminGeo" element={<PrivateRoute role="4"><AdminGeo /></PrivateRoute>} />
         <Route path="/EnvioCorreos" element={<PrivateRoute role="4"><MassEmail /></PrivateRoute>} />
+        <Route path="/EnvioSms" element={<PrivateRoute role="4"><MassSMS /></PrivateRoute>} />
         <Route path="/soporte" element={<PrivateRoute role="2"><Soporte /></PrivateRoute>} />
       </Routes>
       <Footer />
