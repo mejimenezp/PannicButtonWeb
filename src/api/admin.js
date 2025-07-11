@@ -2,11 +2,16 @@ import api from "./api";
 import { jwtDecode } from "jwt-decode";
 
 // Iniciar sesión
-export const login = async (phone, email) => {
-  try {
-    const response = await api.post("/auth/login", { phone, email });
-    const { token} = response.data;
 
+export const requestOtp = async (phone, email) => {
+  const res = await api.post(`/auth/otp/request`, { phone, email });
+  return res.data;
+};
+
+export const verifyOtp = async (email, code, phone) => {
+  try {
+    const res = await api.post(`/auth/otp/verify`, { email, code, phone });
+    const {token} = res.data; 
     if (token) {
 
       const decoded = jwtDecode(token);
@@ -32,13 +37,14 @@ export const login = async (phone, email) => {
       localStorage.setItem("Loca_ID", Loca_ID);
       return { success: true, role, token };
     }
-
     return { success: false };
   } catch (error) {
     console.error("❌ Error en el inicio de sesión:", error);
     return { success: false };
   }
+
 };
+
 
 // Cerrar sesión
 export const logout = () => {
@@ -55,7 +61,7 @@ export const logout = () => {
 };
 
 
-// ✅ Nueva función para validar el token en el backend
+
 export const validateToken = async () => {
   const token = localStorage.getItem("token");
   if (!token) return false;
@@ -88,3 +94,4 @@ export const getUserRole = () => {
 export const getUserService = () => {
   return localStorage.getItem("serv_id");
 };
+

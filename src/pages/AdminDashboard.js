@@ -60,22 +60,20 @@ const AdminDashboard = () => {
         >
           🌐 Gestionar Localizaciones
         </button>
-        {!isSupport && (
+
           <button
             className="btn btn-mail"
             onClick={() => navigate("/EnvioCorreos")}
           >
             📧 Envío de Correo
           </button>
-        )}
-        {!isSupport && (
+        
           <button
             className="btn btn-mail"
             onClick={() => navigate("/EnvioSms")}
           >
             📧 Envío de SMS
           </button>
-        )}
 
       </div>
       
