@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createUser, updateUser, getServices } from "../api/users";
 import { getDepartamentos, getAreas, getCiudades, getVeredas, getLocalidades } from "../api/locations";
+import "../assets/css/forms.css";
 
 const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
   const [user, setUser] = useState({
@@ -93,7 +94,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
     };
   
     loadLocationData();
-  }, [editingUser]);  // ⚠️ Esto asegura que se recargue cuando editingUser cambie
+  }, [editingUser]); 
   
 
   // Cargar opciones de selects (servicios, departamentos)
@@ -186,20 +187,16 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Objeto final a enviar
-    const userToSend = {
-      ...user,
-      // Mantener valores existentes si no se modificaron
-      dpto_id: user.dpto_id !== "" ? user.dpto_id : editingUser?.Departamento_ID || null,
-      area_id: user.area_id !== "" ? user.area_id : editingUser?.Area_ID || null,
-      ciud_id: ciudades.length === 0 && user.area_id !== editingUser?.Area_ID ? null : (user.ciud_id !== "" ? user.ciud_id : editingUser?.Ciudad_ID || null),
-      vere_id: veredas.length === 0 && user.ciud_id !== editingUser?.Ciudad_ID ? null : (user.vere_id !== "" ? user.vere_id : editingUser?.Vereda_ID || null),
-      loca_id: localidades.length === 0 && user.vere_id !== editingUser?.Vereda_ID ? null : (user.loca_id !== "" ? user.loca_id : editingUser?.Localidad_ID || null),
-
-    };
-
+  e.preventDefault();
+  const normalizeNulls = (value) => value === "null" ? null : value;
+  const userToSend = {
+    ...user,
+    dpto_id: user.dpto_id !== "" ? user.dpto_id : editingUser?.Departamento_ID || null,
+    area_id: user.area_id !== "" ? normalizeNulls(user.area_id) : editingUser?.Area_ID || null,
+    ciud_id: ciudades.length === 0 && user.area_id !== editingUser?.Area_ID ? null : (user.ciud_id !== "" ? normalizeNulls(user.ciud_id) : editingUser?.Ciudad_ID || null),
+    vere_id: veredas.length === 0 && user.ciud_id !== editingUser?.Ciudad_ID ? null : (user.vere_id !== "" ? normalizeNulls(user.vere_id) : editingUser?.Vereda_ID || null),
+    loca_id: localidades.length === 0 && user.vere_id !== editingUser?.Vereda_ID ? null : (user.loca_id !== "" ? normalizeNulls(user.loca_id) : editingUser?.Localidad_ID || null),
+  };
     try {
       if (editingUser) {
         await updateUser(editingUser.Usua_ID, userToSend);
@@ -234,7 +231,6 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Nombre:</label>
         <input 
           type="text" 
           name="nombre" 
@@ -246,7 +242,6 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
       </div>
 
       <div>
-        <label>Email:</label>
         <input 
           type="email" 
           name="mail" 
@@ -258,7 +253,6 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
       </div>
 
       <div>
-        <label>Teléfono:</label>
         <input 
           type="text" 
           name="phone" 
@@ -308,6 +302,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
           
         >
           <option value="">Seleccione un Área</option>
+          <option value="null">Sin Área</option>
           {areas.length > 0 ? (
             areas.map((a) => (
               <option key={a.Area_ID} value={a.Area_ID}>
@@ -330,6 +325,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
           disabled={!user.area_id}
         >
           <option value="">Seleccione una Ciudad</option>
+          <option value="null">Sin Ciudad</option>
           {ciudades.length > 0 ? (
             ciudades.map((c) => (
               <option key={c.Ciud_ID} value={c.Ciud_ID}>
@@ -352,6 +348,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
           disabled={!user.ciud_id}
         >
           <option value="">Seleccione una Vereda</option>
+          <option value="null">Sin Vereda</option>
           {veredas.length > 0 ? (
             veredas.map((v) => (
               <option key={v.Vere_ID} value={v.Vere_ID}>
@@ -374,6 +371,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
           disabled={!user.vere_id}
         >
           <option value="">Seleccione una Localidad</option>
+          <option value="null">Sin Localidad</option>
           {localidades.length > 0 ? (
             localidades.map((l) => (
               <option key={l.Loca_ID} value={l.Loca_ID}>

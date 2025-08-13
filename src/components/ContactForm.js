@@ -102,45 +102,74 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
   const handleChange = async (e) => {
     const { name, value } = e.target;
     setContact({ ...contact, [name]: value });
-
     if (name === "dpto_id") {
+      if (!value || value === "null") {
+        setAreas([]);
+        setCiudades([]);
+        setVeredas([]);
+        setLocalidades([]);
+        return;
+      }
       setAreas(await getAreas(value));
       setCiudades([]);
       setVeredas([]);
       setLocalidades([]);
     }
+
     if (name === "area_id") {
+      if (!value || value === "null") {
+        setCiudades([]);
+        setVeredas([]);
+        setLocalidades([]);
+        return;
+      }
       setCiudades(await getCiudades(value));
       setVeredas([]);
       setLocalidades([]);
     }
+
     if (name === "ciud_id") {
+      if (!value || value === "null") {
+        setVeredas([]);
+        setLocalidades([]);
+        return;
+      }
       setVeredas(await getVeredas(value));
       setLocalidades([]);
     }
+
     if (name === "vere_id") {
+      if (!value || value === "null") {
+        setLocalidades([]);
+        return;
+      }
       setLocalidades(await getLocalidades(value));
     }
-  };
+  }
+
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const cleanContact = { ...contact };
-    if (!ciudades.length)cleanContact.ciud_id= "";
-    if (!areas.length) cleanContact.area_id= "";
-    if (!veredas.length) cleanContact.vere_id = "";
-    if (!localidades.length) cleanContact.loca_id = "";
+  const normalizeNulls = (value) => value === "null" ? null : value;
 
+  const contactToSend = {
+    ...contact,
+    dpto_id: contact.dpto_id !== "" ? normalizeNulls(contact.dpto_id) : editingContact?.Departamento_ID || null,
+    area_id: areas.length === 0 ? null : (contact.area_id !== "" ? normalizeNulls(contact.area_id) : editingContact?.Area_ID || null),
+    ciud_id: ciudades.length === 0 && contact.area_id !== editingContact?.Area_ID ? null : (contact.ciud_id !== "" ? normalizeNulls(contact.ciud_id) : editingContact?.Ciudad_ID || null),
+    vere_id: veredas.length === 0 && contact.ciud_id !== editingContact?.Ciudad_ID ? null : (contact.vere_id !== "" ? normalizeNulls(contact.vere_id) : editingContact?.Vereda_ID || null),
+    loca_id: localidades.length === 0 && contact.vere_id !== editingContact?.Vereda_ID ? null : (contact.loca_id !== "" ? normalizeNulls(contact.loca_id) : editingContact?.Localidad_ID || null),
+  };
     try {
-      if (editingContact) {
-        await updateContact(editingContact.Cont_ID, cleanContact);
-        alert("Contacto actualizado exitosamente");
-        setEditingContact(null);
-      } else {
-        await createContact(cleanContact);
-        alert("Contacto creado exitosamente");
-      }
+       if (editingContact) {
+      await updateContact(editingContact.Cont_ID, contactToSend);
+      alert("Contacto actualizado exitosamente");
+      setEditingContact(null);
+    } else {
+      await createContact(contactToSend);
+      alert("Contacto creado exitosamente");
+    }
 
       setContact({
         name: "",
@@ -182,6 +211,7 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
       <label>Área Actual: {editingContact?.Area}</label>
       <select name="area_id" value={contact.area_id} onChange={handleChange}  disabled={!areas.length}>
         <option value="">Seleccione un Área</option>
+        <option value="null">Sin Área</option>
         {areas.map((a) => (
           <option key={a.Area_ID} value={a.Area_ID}>{a.Area_Name}</option>
         ))}
@@ -189,6 +219,7 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
       <label>Ciudad Actual: {editingContact?.Ciudad}</label>
       <select name="ciud_id" value={contact.ciud_id} onChange={handleChange}  disabled={!ciudades.length}>
         <option value="">Seleccione una Ciudad</option>
+        <option value="null">Sin Ciudad</option>
         {ciudades.map((c) => (
           <option key={c.Ciud_ID} value={c.Ciud_ID}>{c.Ciud_Name}</option>
         ))}
@@ -196,6 +227,7 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
       <label>Vereda Actual: {editingContact?.Vereda}</label>
       <select name="vere_id" value={contact.vere_id} onChange={handleChange}  disabled={!veredas.length}>
         <option value="">Seleccione una Vereda</option>
+        <option value="null">Sin Vereda</option>
         {veredas.map((v) => (
           <option key={v.Vere_ID} value={v.Vere_ID}>{v.Vere_Name}</option>
         ))}
@@ -203,6 +235,7 @@ const ContactForm = ({ loadContacts, editingContact, setEditingContact }) => {
       <label>Localidad Actual: {editingContact?.Localidad}</label>
       <select name="loca_id" value={contact.loca_id} onChange={handleChange}  disabled={!localidades.length}>
         <option value="">Seleccione una Localidad</option>
+        <option value="null">Sin Localidad</option>
         {localidades.map((l) => (
           <option key={l.Loca_ID} value={l.Loca_ID}>{l.Loca_Name}</option>
         ))}
