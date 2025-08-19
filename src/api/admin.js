@@ -18,6 +18,7 @@ export const verifyOtp = async (email, code, phone) => {
       const serv_id = decoded.serv_id;
       const serv_name = decoded.serv_name;
       const role = decoded.role;
+      const name = decoded.name;
       const id = decoded.id;
       const Dpto_ID = decoded.departamento;
       const Area_ID = decoded.area;
@@ -29,6 +30,7 @@ export const verifyOtp = async (email, code, phone) => {
       localStorage.setItem("serv_id", serv_id);
       localStorage.setItem("serv_name",serv_name);
       localStorage.setItem("role", role);
+      localStorage.setItem("nombre",name);
       localStorage.setItem("id", id);
       localStorage.setItem("Dpto_ID", Dpto_ID);
       localStorage.setItem("Area_ID", Area_ID);

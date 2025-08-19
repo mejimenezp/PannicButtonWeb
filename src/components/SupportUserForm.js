@@ -202,6 +202,7 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const createdBy = localStorage.getItem("nombre");
       const normalizeNulls = (value) => value === "null" ? null : value;
       // Preparar datos para enviar (mantener valores no editables)
       const userToSend = {
@@ -211,6 +212,7 @@ const SupportUserForm = ({ loadUsers, editingUser, setEditingUser, closeForm }) 
         ciud_id: normalizeNulls(user.ciud_id),
         vere_id: normalizeNulls(user.vere_id),
         loca_id: normalizeNulls(user.loca_id),
+        created_by: createdBy,
         ...(!isFieldEditable('dpto_id') && { dpto_id: userData.dpto_id }),
         ...(!isFieldEditable('area_id') && { area_id: userData.area_id }),
         ...(!isFieldEditable('ciud_id') && { ciud_id: userData.ciud_id }),

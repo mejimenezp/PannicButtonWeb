@@ -188,6 +188,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
+  const createdBy = localStorage.getItem("nombre");
   const normalizeNulls = (value) => value === "null" ? null : value;
   const userToSend = {
     ...user,
@@ -196,6 +197,7 @@ const UserForm = ({ loadUsers, editingUser, setEditingUser }) => {
     ciud_id: ciudades.length === 0 && user.area_id !== editingUser?.Area_ID ? null : (user.ciud_id !== "" ? normalizeNulls(user.ciud_id) : editingUser?.Ciudad_ID || null),
     vere_id: veredas.length === 0 && user.ciud_id !== editingUser?.Ciudad_ID ? null : (user.vere_id !== "" ? normalizeNulls(user.vere_id) : editingUser?.Vereda_ID || null),
     loca_id: localidades.length === 0 && user.vere_id !== editingUser?.Vereda_ID ? null : (user.loca_id !== "" ? normalizeNulls(user.loca_id) : editingUser?.Localidad_ID || null),
+    created_by: createdBy,
   };
     try {
       if (editingUser) {
