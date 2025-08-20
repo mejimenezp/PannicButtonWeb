@@ -17,6 +17,7 @@ const Admin = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [actionUser, setActionUser] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Obtener información del usuario actual
   const currentUserRole = localStorage.getItem("role");
@@ -66,6 +67,14 @@ const Admin = () => {
     if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
     if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
+  });
+  const searchedUsers = sortedUsers.filter((user) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      user.Usua_Name?.toLowerCase().includes(term) ||
+      user.Usua_Phone?.toLowerCase().includes(term) ||
+      user.Usua_Email?.toLowerCase().includes(term)
+    );
   });
 
   const toggleSidebar = () => {
@@ -147,6 +156,21 @@ const Admin = () => {
         <button className="btn btn-add" onClick={handleAddNew}>
           ➕ Agregar Usuario
         </button>
+         <div style={{ margin: "15px 0" }}>
+            <input
+              type="text"
+              placeholder="Buscar por nombre, teléfono o email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{
+                padding: "8px",
+                width: "100%",
+                maxWidth: "400px",
+                borderRadius: "6px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
       {/* Filtros */}
       <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
         {/* Solo para Admin */}
@@ -266,8 +290,8 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody>
-          {sortedUsers.length > 0 ? (
-              sortedUsers.map((user) => (
+          {searchedUsers.length > 0 ? (
+              searchedUsers.map((user) => (
                 <tr key={user.Usua_ID}>
                   <td title={user.Usua_Name}>{user.Usua_Name}</td>
                   <td>{user.Usua_Phone}</td>

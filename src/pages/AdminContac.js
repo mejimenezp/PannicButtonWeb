@@ -12,6 +12,7 @@ const AdminContacts = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [actionContact, setActionContact] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const currentUserRole = localStorage.getItem("role");
   const isSupport = currentUserRole === "support";
@@ -51,6 +52,7 @@ const AdminContacts = () => {
       }
     });
   };
+  
 
   const sortedContacts = [...filteredData].sort((a, b) => {
     if (!sortConfig.key) return 0;
@@ -60,6 +62,15 @@ const AdminContacts = () => {
     if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
     if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
+  });
+
+  const searchedContacts = sortedContacts.filter((contact) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      contact.Cont_Name?.toLowerCase().includes(term) ||
+      contact.Cont_Phone?.toLowerCase().includes(term) ||
+      contact.Cont_Email?.toLowerCase().includes(term)
+    );
   });
 
   const handleCloseForm = () => {
@@ -101,8 +112,22 @@ const AdminContacts = () => {
           El usuario soporte tiene el tipo de servicio: {localStorage.getItem("serv_name")}
         </p>
       )}
-
       <button className="btn btn-add" onClick={handleAddNew}>➕ Agregar Contacto</button>
+       <div style={{ margin: "15px 0" }}>
+            <input
+              type="text"
+              placeholder="Buscar por nombre, teléfono o email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{
+                padding: "8px",
+                width: "100%",
+                maxWidth: "400px",
+                borderRadius: "6px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
 
       {/* Filtros */}
       <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -199,8 +224,8 @@ const AdminContacts = () => {
             </tr>
           </thead>
           <tbody>
-          {sortedContacts.length > 0 ? (
-            sortedContacts.map((contact) => (
+          {searchedContacts.length > 0 ? (
+            searchedContacts.map((contact) => (
                 <tr key={contact.Cont_ID}>
                   <td>{contact.Cont_Name}</td>
                   <td>{contact.Cont_Phone}</td>
