@@ -7,6 +7,9 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   font-family: 'Arial', sans-serif;
 }
+.admin-container h1 {
+  text-align: center;
+}
 
 h2 {
   text-align: center;
@@ -375,3 +378,22 @@ th.desc::after {
 
 
 
+.contador-registros {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;   /* espacio entre elementos */
+}
+
+/* Input de búsqueda centrado */
+.contador-registros .search-input {
+  flex: 1;                /* ocupa el espacio central */
+  max-width: 400px;       /* límite de ancho */
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}

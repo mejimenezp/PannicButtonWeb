@@ -189,7 +189,7 @@ const AdminContacts = () => {
       {/* Contador de registros */}
       <div className="contador-registros">
         <p className="total">Total de contactos: {contacts.length}</p>
-        <p className="filtrados">Contactos filtrados: {filteredData.length}</p>
+        <p className="filtrados">Contactos filtrados: {searchedContacts.length}</p>
       </div>
 
       {/* Tabla de contactos */}

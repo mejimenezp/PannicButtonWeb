@@ -137,40 +137,27 @@ const Admin = () => {
 
   return (
     <div className="admin-container">
-      <h2>
-        {isSupport
-          ? "Administración de Usuarios (Soporte)"
-          : "Administración de Usuarios"}
-      </h2>
+  {/* Encabezado con título y botón en la misma fila */}
+  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <h2 style={{ margin: 0 }}>
+      {isSupport
+        ? "Administración de Usuarios (Soporte)"
+        : "Administración de Usuarios"}
+    </h2>
 
-      {/* Mostrar el nombre del servicio si existe */}
-      {isSupport && localStorage.getItem("serv_name") && (
-        <p style={{ marginTop: "-10px", marginBottom: "15px", fontWeight: "500", color: "#444" }}>
-          El usuario soporte tiene el tipo de servico: {localStorage.getItem("serv_name")}
-        </p>
-      )}
+    <button className="btn btn-add" onClick={handleAddNew}>
+      ➕ Agregar Usuario
+    </button>
+  </div>
+
+  {/* Mostrar el nombre del servicio si existe */}
+  {isSupport && localStorage.getItem("serv_name") && (
+    <p style={{ marginTop: "5px", marginBottom: "15px", fontWeight: "500", color: "#444" }}>
+      El usuario soporte tiene el tipo de servico: {localStorage.getItem("serv_name")}
+    </p>
+  )}
 
 
-      {/* Mostrar botón solo para admin */}
-     
-        <button className="btn btn-add" onClick={handleAddNew}>
-          ➕ Agregar Usuario
-        </button>
-         <div style={{ margin: "15px 0" }}>
-            <input
-              type="text"
-              placeholder="Buscar por nombre, teléfono o email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                padding: "8px",
-                width: "100%",
-                maxWidth: "400px",
-                borderRadius: "6px",
-                border: "1px solid #ccc",
-              }}
-            />
-          </div>
       {/* Filtros */}
       <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
         {/* Solo para Admin */}
@@ -246,11 +233,22 @@ const Admin = () => {
           />
         )}
       </div>
-       {/* Contador de registros */}
-       <div className="contador-registros">
-        <p className="total">Total de Usuarios: {users.length}</p>
-        <p className="filtrados">Usuarios filtrados: {filteredData.length}</p>
-      </div>
+      {/* Contador de registros con input en el medio */}
+        <div className="contador-registros">
+          <p className="total">Total de Usuarios: {users.length}</p>
+
+          <input
+            type="text"
+            placeholder="Buscar por nombre, teléfono o email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+
+          <p className="filtrados">Usuarios filtrados: {searchedUsers.length}</p>
+        </div>
+
+
 
       {/* Tabla de usuarios */}
       <div className="table-container">
