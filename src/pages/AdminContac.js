@@ -102,32 +102,25 @@ const AdminContacts = () => {
   };
 
   return (
-    <div className="admin-container">
-      <h2>
-        {isSupport ? "Administración de Contactos (Soporte)" : "Administración de Contactos"}
-      </h2>
+   <div className="admin-container">
+  {/* Encabezado con título y botón en la misma fila */}
+  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <h2 style={{ margin: 0 }}>
+      {isSupport
+        ? "Administración de Contactos (Soporte)"
+        : "Administración de Contactos"}
+    </h2>
 
-      {isSupport && localStorage.getItem("serv_name") && (
-        <p style={{ marginTop: "-10px", marginBottom: "15px", fontWeight: "500", color: "#444" }}>
-          El usuario soporte tiene el tipo de servicio: {localStorage.getItem("serv_name")}
-        </p>
-      )}
-      <button className="btn btn-add" onClick={handleAddNew}>➕ Agregar Contacto</button>
-       <div style={{ margin: "15px 0" }}>
-            <input
-              type="text"
-              placeholder="Buscar por nombre, teléfono o email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                padding: "8px",
-                width: "100%",
-                maxWidth: "400px",
-                borderRadius: "6px",
-                border: "1px solid #ccc",
-              }}
-            />
-          </div>
+    <button className="btn btn-add" onClick={handleAddNew}>
+      ➕ Agregar Contacto
+    </button>
+  </div>
+  {/* Mostrar el nombre del servicio si existe */}
+  {isSupport && localStorage.getItem("serv_name") && (
+    <p style={{ marginTop: "5px", marginBottom: "15px", fontWeight: "500", color: "#444" }}>
+      El usuario soporte tiene el tipo de servico: {localStorage.getItem("serv_name")}
+    </p>
+  )}
 
       {/* Filtros */}
       <div className="filter-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -186,11 +179,20 @@ const AdminContacts = () => {
         )}
       </div>
 
-      {/* Contador de registros */}
-      <div className="contador-registros">
-        <p className="total">Total de contactos: {contacts.length}</p>
-        <p className="filtrados">Contactos filtrados: {searchedContacts.length}</p>
-      </div>
+      {/* Contador de registros con input en el medio */}
+        <div className="contador-registros">
+          <p className="total">Total de Contactos: {contacts.length}</p>
+
+          <input
+            type="text"
+            placeholder="Buscar por nombre, teléfono o email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+
+          <p className="filtrados">Contactos filtrados: {searchedContacts.length}</p>
+        </div>
 
       {/* Tabla de contactos */}
       <div className="table-container">
