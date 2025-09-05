@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getUsers, deleteUser, getUserContacts,sendInstructionsEmail } from "../api/users";
+import { getUsers, deleteUser, getUserContacts,sendInstructionsEmail,getUserByPhone,updateCoordinates } from "../api/users";
 import { getSupportUsers } from "../api/soporte";
 import UserForm from "../components/UserForm";
 import SupportUserForm from "../components/SupportUserForm";
 import Modal from "../components/Modal";
 import ActionModal from "../components/ActionModal"; 
+import CoordinateModal from "../components/modalcoordenadas";
 import useDynamicFilters from "../components/Hooks/useDynamicFilters";
 import "../assets/css/admin.css";
 
@@ -18,6 +19,8 @@ const Admin = () => {
   const [actionUser, setActionUser] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [searchTerm, setSearchTerm] = useState("");
+  const [isCoordinateModalOpen, setIsCoordinateModalOpen] = useState(false);
+  const [selectedPhone, setSelectedPhone] = useState(null);
 
   // Obtener información del usuario actual
   const currentUserRole = localStorage.getItem("role");
@@ -130,6 +133,24 @@ const Admin = () => {
     }
     setActionUser(null);
   };
+
+    const handleOpenCoordinateModal = (user) => {
+    setSelectedPhone(user.Usua_Phone);
+    setIsCoordinateModalOpen(true);
+  };
+
+  const handleSaveCoordinates = async (phone, coords) => {
+    try {
+      await updateCoordinates(phone, coords);
+      alert("Coordenadas actualizadas ✅");
+      setIsCoordinateModalOpen(false);
+      loadUsers(); // recarga la tabla
+    } catch (err) {
+      console.error("Error actualizando coordenadas:", err);
+      alert("No se pudo actualizar coordenadas ❌");
+    }
+  };
+
   
 
   const openActionsModal = (user) => setActionUser(user);
@@ -144,6 +165,11 @@ const Admin = () => {
         ? "Administración de Usuarios (Soporte)"
         : "Administración de Usuarios"}
     </h2>
+    <button className="btn btn-coords" onClick={() => setIsCoordinateModalOpen(true)}>
+      📍 Editar Coordenadas
+    </button>
+
+
 
     <button className="btn btn-add" onClick={handleAddNew}>
       ➕ Agregar Usuario
@@ -353,7 +379,15 @@ const Admin = () => {
         isSupport={isSupport}
         currentUserServId={currentUserServId}
       />
+      <CoordinateModal
+        isOpen={isCoordinateModalOpen}
+        onClose={() => setIsCoordinateModalOpen(false)}
+        userPhone={selectedPhone}
+        onSave={handleSaveCoordinates}
+        fetchUserData={getUserByPhone}
+      />
     </div>
+    
   );
 };
 

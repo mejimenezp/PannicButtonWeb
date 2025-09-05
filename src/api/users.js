@@ -42,3 +42,18 @@ export const sendInstructionsEmail = async (email) => {
   const { data } = await api.post(`/instrucciones`, { email });
   return data;
 };
+// 🔹 Obtener usuario por teléfono
+export const getUserByPhone = async (phone) => {
+  const { data } = await api.get(`/by-phone/${phone}`);
+  return data;
+};
+
+// 🔹 Actualizar coordenadas de un usuario por teléfono
+export const updateCoordinates = async (phone, { latitud, longitud }) => {
+  const { data } = await api.put("/update-coordinates", {
+    phone,
+    latitud,
+    longitud,
+  });
+  return data;
+};
